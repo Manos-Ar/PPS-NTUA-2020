@@ -1,17 +1,17 @@
 # !/bin/bash
 
 ## Give the Job a descriptive name
-PBS -N run_omp_Game_Of_Life
+# PBS -N run_omp_Game_Of_Life
 
 ## Output and error files
-PBS -o run_omp_Game_Of_Life.out
-PBS -e run_omp_Game_Of_Life.err
+# PBS -o run_omp_Game_Of_Life.out
+# PBS -e run_omp_Game_Of_Life.err
 
 ## How many machines should we get?
-PBS -l nodes=1:ppn=8
+# PBS -l nodes=1:ppn=8
 
 ##How long should the job run for?
-PBS -l walltime=00:01:00
+# PBS -l walltime=00:01:00
 
 ## Start
 ## Run make in the src folder (modify properly)
