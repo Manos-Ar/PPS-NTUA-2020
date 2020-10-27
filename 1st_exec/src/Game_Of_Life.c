@@ -63,10 +63,10 @@ int main (int argc, char * argv[]) {
 	for ( t = 0 ; t < T ; t++ ) {
 		#pragma omp parallel
 		{
-			#pragma omp single
-			{
-			printf("Number of threads = %d\n", omp_get_num_threads());
-			}
+			// #pragma omp single
+			// {
+			// printf("Number of threads = %d\n", omp_get_num_threads());
+			// }
 			#pragma omp for
 			for ( i = 1 ; i < N-1 ; i++ )
 				for ( j = 1 ; j < N-1 ; j++ ) {
