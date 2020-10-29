@@ -1,5 +1,5 @@
-GIF?=-DOUTPUT
-#GIF?=
+# GIF?=-DOUTPUT
+GIF?=
 
 all: Game_Of_Life
 
