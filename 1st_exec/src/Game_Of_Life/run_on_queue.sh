@@ -19,15 +19,20 @@
 module load openmp
 cd /home/parallel/parlab07/a1/src/Game_Of_Life
 
+FILE=metrics.txt
 nthreads=( 1 2 4 6 8 )
-sizes=( 64 1024 4096 )
+sizes=( 64 1024 4096)
 
-for nthread in "${nthreads[@]}";
+if [ -f "$FILE" ]; then
+	rm $FILE
+fi
+for size in "${sizes[@]}";
 do
-	for size in "${sizes[@]}";
+	for nthread in "${nthreads[@]}";
 	do
 		export OMP_NUM_THREADS=${nthread};
-		echo "Number of threads: ${nthread}"
-		./Game_Of_Life ${size} 1000
+		echo -n "Threads ${nthread} " >> $FILE
+		./Game_Of_Life ${size} 1000 >> $FILE
 	done
+		echo >> $FILE
 done
