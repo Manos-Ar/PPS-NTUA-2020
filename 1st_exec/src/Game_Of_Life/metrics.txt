@@ -1,0 +1,17 @@
+Threads 1 GameOfLife: Size 64 Steps 1000 Time 0.023125
+Threads 2 GameOfLife: Size 64 Steps 1000 Time 0.013745
+Threads 4 GameOfLife: Size 64 Steps 1000 Time 0.009466
+Threads 6 GameOfLife: Size 64 Steps 1000 Time 0.009147
+Threads 8 GameOfLife: Size 64 Steps 1000 Time 0.921568
+
+Threads 1 GameOfLife: Size 1024 Steps 1000 Time 10.965569
+Threads 2 GameOfLife: Size 1024 Steps 1000 Time 5.458503
+Threads 4 GameOfLife: Size 1024 Steps 1000 Time 2.741920
+Threads 6 GameOfLife: Size 1024 Steps 1000 Time 1.856764
+Threads 8 GameOfLife: Size 1024 Steps 1000 Time 6.187554
+
+Threads 1 GameOfLife: Size 4096 Steps 1000 Time 175.871665
+Threads 2 GameOfLife: Size 4096 Steps 1000 Time 88.288967
+Threads 4 GameOfLife: Size 4096 Steps 1000 Time 44.582814
+Threads 6 GameOfLife: Size 4096 Steps 1000 Time 34.739006
+Threads 8 GameOfLife: Size 4096 Steps 1000 Time 41.281937
