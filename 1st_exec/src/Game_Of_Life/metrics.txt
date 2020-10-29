@@ -1,18 +1,18 @@
-Threads 1 GameOfLife: Size 64 Steps 1000 Time 0.009969
-Threads 2 GameOfLife: Size 64 Steps 1000 Time 0.005829
-Threads 4 GameOfLife: Size 64 Steps 1000 Time 0.003806
-Threads 6 GameOfLife: Size 64 Steps 1000 Time 0.004841
-Threads 8 GameOfLife: Size 64 Steps 1000 Time 0.003481
+Threads 1 GameOfLife: Size 64 Steps 1000 Time 0.010494
+Threads 2 GameOfLife: Size 64 Steps 1000 Time 0.007809
+Threads 4 GameOfLife: Size 64 Steps 1000 Time 0.005385
+Threads 6 GameOfLife: Size 64 Steps 1000 Time 0.005500
+Threads 8 GameOfLife: Size 64 Steps 1000 Time 0.007464
 
-Threads 1 GameOfLife: Size 1024 Steps 1000 Time 1.555377
-Threads 2 GameOfLife: Size 1024 Steps 1000 Time 0.796818
-Threads 4 GameOfLife: Size 1024 Steps 1000 Time 0.408360
-Threads 6 GameOfLife: Size 1024 Steps 1000 Time 0.287078
-Threads 8 GameOfLife: Size 1024 Steps 1000 Time 0.347544
+Threads 1 GameOfLife: Size 1024 Steps 1000 Time 1.591763
+Threads 2 GameOfLife: Size 1024 Steps 1000 Time 0.807676
+Threads 4 GameOfLife: Size 1024 Steps 1000 Time 0.427153
+Threads 6 GameOfLife: Size 1024 Steps 1000 Time 0.294756
+Threads 8 GameOfLife: Size 1024 Steps 1000 Time 0.347689
 
-Threads 1 GameOfLife: Size 4096 Steps 1000 Time 25.573961
-Threads 2 GameOfLife: Size 4096 Steps 1000 Time 13.305088
-Threads 4 GameOfLife: Size 4096 Steps 1000 Time 7.547368
-Threads 6 GameOfLife: Size 4096 Steps 1000 Time 7.417336
-Threads 8 GameOfLife: Size 4096 Steps 1000 Time 7.627086
+Threads 1 GameOfLife: Size 4096 Steps 1000 Time 25.403970
+Threads 2 GameOfLife: Size 4096 Steps 1000 Time 13.378984
+Threads 4 GameOfLife: Size 4096 Steps 1000 Time 7.522033
+Threads 6 GameOfLife: Size 4096 Steps 1000 Time 7.411317
+Threads 8 GameOfLife: Size 4096 Steps 1000 Time 7.584853
 
