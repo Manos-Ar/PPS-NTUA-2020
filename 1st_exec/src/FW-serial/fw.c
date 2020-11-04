@@ -45,7 +45,7 @@ int main(int argc, char **argv)
         for(j=0; j<N; j++) fprintf(stdout,"%d\n", A[i][j]);
      */
 
-     return 0;     
+     return 0;
 }
 
 inline int min(int a, int b)
@@ -53,4 +53,3 @@ inline int min(int a, int b)
      if(a<=b)return a;
      else return b;
 }
-
