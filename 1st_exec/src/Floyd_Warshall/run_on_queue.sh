@@ -23,5 +23,5 @@ implementations=( "fw" "fw_sr" "fw_tiled" )
 
 for implementation in "${implementations[@]}";
 do
-  ./run ${implementation}
+  ./run.sh ${implementation}
 done
