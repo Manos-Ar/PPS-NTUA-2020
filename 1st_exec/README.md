@@ -7,13 +7,9 @@ From the local machine, this command:
 - If the directory on the remote machine exists:
   - It transfers all its contents in the existing directory.
 
-From the `src` directory on local to transfer the `src` directory on remote:
-```
-rsync -vr --rsh "ssh parlab07@orion.cslab.ece.ntua.gr ssh" src/ parlab07@scirouter.cslab.ece.ntua.gr:/home/parallel/parlab07/a1/src
-```
 From the `1st_exec` directory on local to transfer the `1st_exec` directory on remote:
 ```
-rsync -vr --rsh "ssh parlab07@orion.cslab.ece.ntua.gr ssh" 1st_exec/ parlab07@scirouter.cslab.ece.ntua.gr:/home/parallel/parlab07/a1/
+rsync -vr --rsh "ssh parlab07@orion.cslab.ece.ntua.gr ssh" ./ parlab07@scirouter.cslab.ece.ntua.gr:/home/parallel/parlab07/a1/
 ```
 
 ### Scirouter -> Local (Without Proxy)
@@ -23,11 +19,9 @@ From the local machine, this command:
 - If the directory on the local machine exists:
   - It transfers all its contents in the existing directory.
 
-From the `src` directory on local to transfer the `src` directory on remote:
-```
-rsync -vr --rsh "ssh parlab07@orion.cslab.ece.ntua.gr ssh" parlab07@scirouter.cslab.ece.ntua.gr:/home/parallel/parlab07/a1/src .
-```
 From the `1st_exec` directory on local to transfer the `1st_exec` directory on remote:
 ```
 rsync -vr --rsh "ssh parlab07@orion.cslab.ece.ntua.gr ssh" parlab07@scirouter.cslab.ece.ntua.gr:/home/parallel/parlab07/a1/ .
 ```
+### Rsync Options
+--delete = to delete everything old to the remote directory
