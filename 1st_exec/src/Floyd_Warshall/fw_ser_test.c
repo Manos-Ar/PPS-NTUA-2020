@@ -6,8 +6,6 @@
 #include <stdlib.h>
 #include <sys/time.h>
 #include "util.h"
-#include <omp.h>
-
 
 inline int min(int a, int b);
 
@@ -33,7 +31,6 @@ int main(int argc, char **argv)
 
      gettimeofday(&t1,0);
      for(k=0;k<N;k++)
-     #pragma omp parallel for private(j)
         for(i=0; i<N; i++)
            for(j=0; j<N; j++)
               A[i][j]=min(A[i][j], A[i][k] + A[k][j]);
@@ -43,17 +40,17 @@ int main(int argc, char **argv)
      time=(double)((t2.tv_sec-t1.tv_sec)*1000000+t2.tv_usec-t1.tv_usec)/1000000;
      printf("FW,%d,%.4f\n", N, time);
 
-     // FILE *output;
-     // output=fopen("output_papar.txt","w");
-     //
-     // // /*
-     // for(i=0; i<N; i++){
-     //    for(j=0; j<N; j++)
-     //      fprintf(output,"%d ", A[i][j]);
-     //    fprintf(output,"\n");
-     //  }
-     // // */
-     // fclose(output);
+     FILE *output;
+     output=fopen("output_ser.txt","w");
+
+     // /*
+     for(i=0; i<N; i++){
+        for(j=0; j<N; j++)
+          fprintf(output,"%d ", A[i][j]);
+        fprintf(output,"\n");
+      }
+     // */
+     fclose(output);
 
      return 0;
 }
