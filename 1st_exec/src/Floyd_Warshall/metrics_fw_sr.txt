@@ -1,0 +1,24 @@
+Threads 1 Usage ./fw_sr N B 
+Threads 2 Usage ./fw_sr N B 
+Threads 4 Usage ./fw_sr N B 
+Threads 8 Usage ./fw_sr N B 
+Threads 16 Usage ./fw_sr N B 
+Threads 32 Usage ./fw_sr N B 
+Threads 64 Usage ./fw_sr N B 
+
+Threads 1 Usage ./fw_sr N B 
+Threads 2 Usage ./fw_sr N B 
+Threads 4 Usage ./fw_sr N B 
+Threads 8 Usage ./fw_sr N B 
+Threads 16 Usage ./fw_sr N B 
+Threads 32 Usage ./fw_sr N B 
+Threads 64 Usage ./fw_sr N B 
+
+Threads 1 Usage ./fw_sr N B 
+Threads 2 Usage ./fw_sr N B 
+Threads 4 Usage ./fw_sr N B 
+Threads 8 Usage ./fw_sr N B 
+Threads 16 Usage ./fw_sr N B 
+Threads 32 Usage ./fw_sr N B 
+Threads 64 Usage ./fw_sr N B 
+
