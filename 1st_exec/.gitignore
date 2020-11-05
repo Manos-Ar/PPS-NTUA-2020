@@ -6,6 +6,7 @@
 /src/Floyd_Warshall/fw
 /src/Floyd_Warshall/fw_sr
 /src/Floyd_Warshall/fw_tiled
+/src/Floyd_Warshall/fw_ser_test
 /src/Floyd_Warshall/make_on_queue.sh.*
 /src/Floyd_Warshall/run_on_queue.sh.*
 /src/Floyd_Warshall/*.o
