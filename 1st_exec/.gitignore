@@ -9,3 +9,4 @@
 /src/Floyd_Warshall/make_on_queue.sh.*
 /src/Floyd_Warshall/run_on_queue.sh.*
 /src/Floyd_Warshall/*.o
+/src/Floyd_Warshall/output*
