@@ -42,19 +42,19 @@ int main(int argc, char **argv)
         FW(A,k,k,k,B);        // CR tile
 
         fprintf(stdout,"FW(A,k,i,k,B) = FW(A,%d,%d,%d,%d)\n", k, 0, k, B);
-        for(i=0; i<k; i+=B)   // N, S tiles
+        for(i=0; i<k; i+=B)   // N tiles
            FW(A,k,i,k,B);
 
         fprintf(stdout,"FW(A,k,i,k,B) = FW(A,%d,%d,%d,%d)\n", k, k+B, k, B);
-        for(i=k+B; i<N; i+=B) // N, S tiles
+        for(i=k+B; i<N; i+=B) // S tiles
            FW(A,k,i,k,B);
 
         fprintf(stdout,"FW(A,k,k,j,B) = FW(A,%d,%d,%d,%d)\n", k, k, 0, B);
-        for(j=0; j<k; j+=B)   // E, W tiles
+        for(j=0; j<k; j+=B)   // W tiles
            FW(A,k,k,j,B);
 
         fprintf(stdout,"FW(A,k,k,j,B) = FW(A,%d,%d,%d,%d)\n", k, k, k+B, B);
-        for(j=k+B; j<N; j+=B) // E, W tiles
+        for(j=k+B; j<N; j+=B) // E tiles
            FW(A,k,k,j,B);
 
         fprintf(stdout,"FW(A,k,i,j,B) = FW(A,%d,%d,%d,%d)\n", k, 0, 0, B);
