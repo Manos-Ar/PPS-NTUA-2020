@@ -36,7 +36,7 @@ with open(outFile) as fp:
         line = fp.readline()
 
 for key, val in times.items():
-    speedups[key] = [x/val[0] for x in val]
+    speedups[key] = [val[0]/x for x in val]
 print ("times: ", times)
 print ("speedups: ", speedups)
 
