@@ -38,32 +38,41 @@ int main(int argc, char **argv)
      gettimeofday(&t1,0);
 
      for(k=0;k<N;k+=B){
+        fprintf(stdout,"FW(A,k,k,k,B) = FW(A,%d,%d,%d,%d)\n", k, k, k, B);
         FW(A,k,k,k,B);        // CR tile
 
+        fprintf(stdout,"FW(A,k,i,k,B) = FW(A,%d,%d,%d,%d)\n", k, 0, k, B);
         for(i=0; i<k; i+=B)   // N, S tiles
            FW(A,k,i,k,B);
 
+        fprintf(stdout,"FW(A,k,i,k,B) = FW(A,%d,%d,%d,%d)\n", k, k+B, k, B);
         for(i=k+B; i<N; i+=B) // N, S tiles
            FW(A,k,i,k,B);
 
+        fprintf(stdout,"FW(A,k,k,j,B) = FW(A,%d,%d,%d,%d)\n", k, k, 0, B);
         for(j=0; j<k; j+=B)   // E, W tiles
            FW(A,k,k,j,B);
 
+        fprintf(stdout,"FW(A,k,k,j,B) = FW(A,%d,%d,%d,%d)\n", k, k, k+B, B);
         for(j=k+B; j<N; j+=B) // E, W tiles
            FW(A,k,k,j,B);
 
+        fprintf(stdout,"FW(A,k,i,j,B) = FW(A,%d,%d,%d,%d)\n", k, 0, 0, B);
         for(i=0; i<k; i+=B)   // NW tiles
            for(j=0; j<k; j+=B)
               FW(A,k,i,j,B);
 
+        fprintf(stdout,"FW(A,k,i,j,B) = FW(A,%d,%d,%d,%d)\n", k, 0, k+B, B);
         for(i=0; i<k; i+=B)   // NE tiles
            for(j=k+B; j<N; j+=B)
               FW(A,k,i,j,B);
 
+        fprintf(stdout,"FW(A,k,i,j,B) = FW(A,%d,%d,%d,%d)\n", k, k+B, 0, B);
         for(i=k+B; i<N; i+=B) // SW tiles
            for(j=0; j<k; j+=B)
               FW(A,k,i,j,B);
 
+        fprintf(stdout,"FW(A,k,i,j,B) = FW(A,%d,%d,%d,%d)\n", k, k+B, k+B, B);
         for(i=k+B; i<N; i+=B) // SE tiles
            for(j=k+B; j<N; j+=B)
               FW(A,k,i,j,B);
@@ -91,9 +100,14 @@ inline void FW(int **A, int K, int I, int J, int N)
 {
      int i,j,k;
 
+     fprintf(stdout,"FW: K = %d, I = %d, J = %d, N = %d\n", K, I, J, N);
+
      for(k=K; k<K+N; k++)
         for(i=I; i<I+N; i++)
-           for(j=J; j<J+N; j++)
-              A[i][j]=min(A[i][j], A[i][k]+A[k][j]);
+           for(j=J; j<J+N; j++) {
+             fprintf(stdout,"A[%d][%d] = min(A[%d][%d], A[%d][%d]+A[%d][%d])\n", i, j, i, j, i, k, k, j);
+             A[i][j]=min(A[i][j], A[i][k]+A[k][j]);
+           }
+
 
 }

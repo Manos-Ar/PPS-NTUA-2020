@@ -12,9 +12,9 @@
 #include "util.h"
 
 inline int min(int a, int b);
-void FW_SR (int **A, int arow, int acol, 
-            int **B, int brow, int bcol, 
-            int **C, int crow, int ccol, 
+void FW_SR (int **A, int arow, int acol,
+            int **B, int brow, int bcol,
+            int **C, int crow, int ccol,
             int myN, int bsize);
 
 int main(int argc, char **argv)
@@ -60,27 +60,26 @@ inline int min(int a, int b)
      else return b;
 }
 
-void FW_SR (int **A, int arow, int acol, 
-            int **B, int brow, int bcol, 
-            int **C, int crow, int ccol, 
+void FW_SR (int **A, int arow, int acol,
+            int **B, int brow, int bcol,
+            int **C, int crow, int ccol,
             int myN, int bsize)
 {
      int k,i,j;
-     
+
      if(myN<=bsize)
         for(k=0; k<myN; k++)
            for(i=0; i<myN; i++)
               for(j=0; j<myN; j++)
                  A[arow+i][acol+j]=min(A[arow+i][acol+j], B[brow+i][bcol+k]+C[crow+k][ccol+j]);
      else {
-        FW_SR(A,arow, acol,B,brow, bcol,C,crow, ccol, myN/2, bsize);
-        FW_SR(A,arow, acol+myN/2,B,brow, bcol,C,crow, ccol+myN/2, myN/2, bsize);
-        FW_SR(A,arow+myN/2, acol,B,brow+myN/2, bcol,C,crow, ccol, myN/2, bsize);
-        FW_SR(A,arow+myN/2, acol+myN/2,B,brow+myN/2, bcol,C,crow, ccol+myN/2, myN/2, bsize);
-        FW_SR(A,arow+myN/2, acol+myN/2,B,brow+myN/2, bcol+myN/2,C,crow+myN/2, ccol+myN/2, myN/2, bsize);
-        FW_SR(A,arow+myN/2, acol,B,brow+myN/2, bcol+myN/2,C,crow+myN/2, ccol, myN/2, bsize);
-        FW_SR(A,arow, acol+myN/2,B,brow, bcol+myN/2,C,crow+myN/2, ccol+myN/2, myN/2, bsize);
-        FW_SR(A,arow, acol,B,brow, bcol+myN/2,C,crow+myN/2, ccol, myN/2, bsize);
+        FW_SR(A, arow,       acol,       B, brow,       bcol,       C, crow,       ccol,       myN/2, bsize);
+        FW_SR(A, arow,       acol+myN/2, B, brow,       bcol,       C, crow,       ccol+myN/2, myN/2, bsize);
+        FW_SR(A, arow+myN/2, acol,       B, brow+myN/2, bcol,       C, crow,       ccol,       myN/2, bsize);
+        FW_SR(A, arow+myN/2, acol+myN/2, B, brow+myN/2, bcol,       C, crow,       ccol+myN/2, myN/2, bsize);
+        FW_SR(A, arow+myN/2, acol+myN/2, B, brow+myN/2, bcol+myN/2, C, crow+myN/2, ccol+myN/2, myN/2, bsize);
+        FW_SR(A, arow+myN/2, acol,       B, brow+myN/2, bcol+myN/2, C, crow+myN/2, ccol,       myN/2, bsize);
+        FW_SR(A, arow,       acol+myN/2, B, brow,       bcol+myN/2, C, crow+myN/2, ccol+myN/2, myN/2, bsize);
+        FW_SR(A, arow,       acol,       B, brow,       bcol+myN/2, C, crow+myN/2, ccol,       myN/2, bsize);
      }
 }
-
