@@ -79,13 +79,19 @@ rsync -vr --rsh "ssh parlab07@orion.cslab.ece.ntua.gr ssh" parlab07@scirouter.cs
 # Torque Commands
 
 ## Submit for Compiling
+On parlab:
 ```
 qsub -q parlab make_on_queue.sh
 ```
 
 ## Submit for Running
+On parlab:
 ```
 qsub -q parlab run_on_queue.sh
+```
+On sandman:
+```
+qsub -q serial -l nodes=sandman:ppn=64 run_on_queue.sh
 ```
 
 ## View all jobs
