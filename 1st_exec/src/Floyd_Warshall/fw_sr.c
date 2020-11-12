@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #include <sys/time.h>
 #include "util.h"
+#include <omp.h>
 
 inline int min(int a, int b);
 void FW_SR (int **A, int arow, int acol,
@@ -55,7 +56,7 @@ int main(int argc, char **argv)
      //    fprintf(output,"\n");
      //  }
      // fclose(output);
-     
+
      return 0;
 }
 
@@ -82,9 +83,7 @@ void FW_SR (int **A, int arow, int acol,
        {
          #pragma omp single
          {
-            #pragma omp task
-              FW_SR(A, arow,       acol,       B, brow,       bcol,       C, crow,       ccol,       myN/2, bsize);
-            #pragma omp taskwait
+            FW_SR(A, arow,       acol,       B, brow,       bcol,       C, crow,       ccol,       myN/2, bsize);
 
             #pragma omp task
               FW_SR(A, arow,       acol+myN/2, B, brow,       bcol,       C, crow,       ccol+myN/2, myN/2, bsize);
@@ -92,13 +91,9 @@ void FW_SR (int **A, int arow, int acol,
               FW_SR(A, arow+myN/2, acol,       B, brow+myN/2, bcol,       C, crow,       ccol,       myN/2, bsize);
             #pragma omp taskwait
 
-            #pragma omp task
-              FW_SR(A, arow+myN/2, acol+myN/2, B, brow+myN/2, bcol,       C, crow,       ccol+myN/2, myN/2, bsize);
-            #pragma omp taskwait
+            FW_SR(A, arow+myN/2, acol+myN/2, B, brow+myN/2, bcol,       C, crow,       ccol+myN/2, myN/2, bsize);
 
-            #pragma omp task
-              FW_SR(A, arow+myN/2, acol+myN/2, B, brow+myN/2, bcol+myN/2, C, crow+myN/2, ccol+myN/2, myN/2, bsize);
-            #pragma omp taskwait
+            FW_SR(A, arow+myN/2, acol+myN/2, B, brow+myN/2, bcol+myN/2, C, crow+myN/2, ccol+myN/2, myN/2, bsize);
 
             #pragma omp task
               FW_SR(A, arow+myN/2, acol,       B, brow+myN/2, bcol+myN/2, C, crow+myN/2, ccol,       myN/2, bsize);
@@ -106,9 +101,7 @@ void FW_SR (int **A, int arow, int acol,
               FW_SR(A, arow,       acol+myN/2, B, brow,       bcol+myN/2, C, crow+myN/2, ccol+myN/2, myN/2, bsize);
             #pragma omp taskwait
 
-            #pragma omp task
-              FW_SR(A, arow,       acol,       B, brow,       bcol+myN/2, C, crow+myN/2, ccol,       myN/2, bsize);
-            #pragma omp taskwait
+            FW_SR(A, arow,       acol,       B, brow,       bcol+myN/2, C, crow+myN/2, ccol,       myN/2, bsize);
         }
       }
      }

@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include <sys/time.h>
 #include "util.h"
+#include <omp.h>
 
 inline int min(int a, int b);
 inline void FW(int **A, int K, int I, int J, int N);
