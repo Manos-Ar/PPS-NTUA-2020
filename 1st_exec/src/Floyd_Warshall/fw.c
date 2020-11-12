@@ -46,13 +46,13 @@ int main(int argc, char **argv)
      // FILE *output;
      // output=fopen("output_fw.txt","w");
      //
-     // // /*
+     //
      // for(i=0; i<N; i++){
      //    for(j=0; j<N; j++)
      //      fprintf(output,"%d ", A[i][j]);
      //    fprintf(output,"\n");
      //  }
-     // // */
+     //
      // fclose(output);
 
      return 0;

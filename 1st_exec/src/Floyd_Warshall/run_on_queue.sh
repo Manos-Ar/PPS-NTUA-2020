@@ -8,7 +8,7 @@
 # PBS -e run_omp_Floyd_Warshall.err
 
 ## How many machines should we get?
-# PBS -l nodes=8:ppn=8
+# PBS -l nodes=1:ppn=8
 
 ##How long should the job run for?
 # PBS -l walltime=00:01:00
