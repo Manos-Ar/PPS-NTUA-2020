@@ -41,7 +41,7 @@ int main(int argc, char **argv)
      printf("FW,%d,%.4f\n", N, time);
 
      FILE *output;
-     output=fopen("output_ser.txt","w");
+     output=fopen("output_fw_ser.txt","w");
 
      // /*
      for(i=0; i<N; i++){

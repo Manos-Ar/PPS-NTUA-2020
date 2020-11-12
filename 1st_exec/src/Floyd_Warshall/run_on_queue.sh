@@ -20,8 +20,10 @@ module load openmp
 cd /home/parallel/parlab07/a1/src/Floyd_Warshall
 
 implementations=( "fw" "fw_sr" "fw_tiled" )
+B=16
+
 
 for implementation in "${implementations[@]}";
 do
-  ./run.sh ${implementation}
+  ./run.sh ${implementation} ${B}
 done

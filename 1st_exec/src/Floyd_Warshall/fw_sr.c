@@ -46,11 +46,15 @@ int main(int argc, char **argv)
      time=(double)((t2.tv_sec-t1.tv_sec)*1000000+t2.tv_usec-t1.tv_usec)/1000000;
      printf("FW_SR,%d,%d,%.4f\n", N, B, time);
 
-     /*
-     for(i=0; i<N; i++)
-        for(j=0; j<N; j++) fprintf(stdout,"%d\n", A[i][j]);
-     */
-
+     // FILE *output;
+     // output=fopen("output_fw_sr.txt","w");
+     //
+     // for(i=0; i<N; i++){
+     //    for(j=0; j<N; j++)
+     //      fprintf(output,"%d ", A[i][j]);
+     //    fprintf(output,"\n");
+     //  }
+     // fclose(output);
      return 0;
 }
 
@@ -73,13 +77,40 @@ void FW_SR (int **A, int arow, int acol,
               for(j=0; j<myN; j++)
                  A[arow+i][acol+j]=min(A[arow+i][acol+j], B[brow+i][bcol+k]+C[crow+k][ccol+j]);
      else {
-        FW_SR(A, arow,       acol,       B, brow,       bcol,       C, crow,       ccol,       myN/2, bsize);
-        FW_SR(A, arow,       acol+myN/2, B, brow,       bcol,       C, crow,       ccol+myN/2, myN/2, bsize);
-        FW_SR(A, arow+myN/2, acol,       B, brow+myN/2, bcol,       C, crow,       ccol,       myN/2, bsize);
-        FW_SR(A, arow+myN/2, acol+myN/2, B, brow+myN/2, bcol,       C, crow,       ccol+myN/2, myN/2, bsize);
-        FW_SR(A, arow+myN/2, acol+myN/2, B, brow+myN/2, bcol+myN/2, C, crow+myN/2, ccol+myN/2, myN/2, bsize);
-        FW_SR(A, arow+myN/2, acol,       B, brow+myN/2, bcol+myN/2, C, crow+myN/2, ccol,       myN/2, bsize);
-        FW_SR(A, arow,       acol+myN/2, B, brow,       bcol+myN/2, C, crow+myN/2, ccol+myN/2, myN/2, bsize);
-        FW_SR(A, arow,       acol,       B, brow,       bcol+myN/2, C, crow+myN/2, ccol,       myN/2, bsize);
+       #pragma omp parallel
+       {
+         #pragma omp single
+         {
+            #pragma omp task
+              FW_SR(A, arow,       acol,       B, brow,       bcol,       C, crow,       ccol,       myN/2, bsize);
+            #pragma omp taskwait
+
+            #pragma omp task
+            {
+              FW_SR(A, arow,       acol+myN/2, B, brow,       bcol,       C, crow,       ccol+myN/2, myN/2, bsize);
+              FW_SR(A, arow+myN/2, acol,       B, brow+myN/2, bcol,       C, crow,       ccol,       myN/2, bsize);
+            }
+            #pragma omp taskwait
+
+            #pragma omp task
+              FW_SR(A, arow+myN/2, acol+myN/2, B, brow+myN/2, bcol,       C, crow,       ccol+myN/2, myN/2, bsize);
+            #pragma omp taskwait
+
+            #pragma omp task
+              FW_SR(A, arow+myN/2, acol+myN/2, B, brow+myN/2, bcol+myN/2, C, crow+myN/2, ccol+myN/2, myN/2, bsize);
+            #pragma omp taskwait
+
+            #pragma omp task
+            {
+              FW_SR(A, arow+myN/2, acol,       B, brow+myN/2, bcol+myN/2, C, crow+myN/2, ccol,       myN/2, bsize);
+              FW_SR(A, arow,       acol+myN/2, B, brow,       bcol+myN/2, C, crow+myN/2, ccol+myN/2, myN/2, bsize);
+            }
+            #pragma omp taskwait
+
+            #pragma omp task
+              FW_SR(A, arow,       acol,       B, brow,       bcol+myN/2, C, crow+myN/2, ccol,       myN/2, bsize);
+            #pragma omp taskwait
+        }
+      }
      }
 }
