@@ -1,7 +1,7 @@
 #!/bin/bash
 
 FILE=metrics_${1}.txt
-nthreads=( 1 2 4 8 )
+nthreads=( 1 2 4 8 16 32 64 )
 sizes=( 1024 2048 4096 )
 if [ -f "$FILE" ]; then
 	rm $FILE
