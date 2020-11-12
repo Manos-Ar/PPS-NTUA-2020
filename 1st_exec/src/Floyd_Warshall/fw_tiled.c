@@ -91,15 +91,15 @@ int main(int argc, char **argv)
      time=(double)((t2.tv_sec-t1.tv_sec)*1000000+t2.tv_usec-t1.tv_usec)/1000000;
      printf("FW_TILED,%d,%d,%.4f\n", N,B,time);
 
-     FILE *output;
-     output=fopen("output_fw_tiled.txt","w");
-
-     for(i=0; i<N; i++){
-        for(j=0; j<N; j++)
-          fprintf(output,"%d ", A[i][j]);
-        fprintf(output,"\n");
-      }
-     fclose(output);
+     // FILE *output;
+     // output=fopen("output_fw_tiled.txt","w");
+     //
+     // for(i=0; i<N; i++){
+     //    for(j=0; j<N; j++)
+     //      fprintf(output,"%d ", A[i][j]);
+     //    fprintf(output,"\n");
+     //  }
+     // fclose(output);
 
      return 0;
 }
