@@ -47,41 +47,41 @@ int main(int argc, char **argv)
            FW(A,k,k,k,B);        // CR tile
 
            for(i=0; i<k; i+=B)   // N tiles
-              #pragma omp task
+              #pragma omp task firstprivate(i)
               FW(A,k,i,k,B);
 
            for(i=k+B; i<N; i+=B) // S tiles
-              #pragma omp task
+              #pragma omp task firstprivate(i)
               FW(A,k,i,k,B);
 
            for(j=0; j<k; j+=B)   // W tiles
-              #pragma omp task
+              #pragma omp task firstprivate(j)
               FW(A,k,k,j,B);
 
            for(j=k+B; j<N; j+=B) // E tiles
-              #pragma omp task
+              #pragma omp task firstprivate(j)
               FW(A,k,k,j,B);
 
           #pragma omp taskwait
 
            for(i=0; i<k; i+=B)   // NW tiles
               for(j=0; j<k; j+=B)
-                #pragma omp task
+                #pragma omp task firstprivate(i, j)
                  FW(A,k,i,j,B);
 
            for(i=0; i<k; i+=B)   // NE tiles
               for(j=k+B; j<N; j+=B)
-                #pragma omp task
+                #pragma omp task firstprivate(i, j)
                  FW(A,k,i,j,B);
 
            for(i=k+B; i<N; i+=B) // SW tiles
               for(j=0; j<k; j+=B)
-                #pragma omp task
+                #pragma omp task firstprivate(i, j)
                  FW(A,k,i,j,B);
 
            for(i=k+B; i<N; i+=B) // SE tiles
               for(j=k+B; j<N; j+=B)
-                #pragma omp task
+                #pragma omp task firstprivate(i, j)
                  FW(A,k,i,j,B);
          }
        }
