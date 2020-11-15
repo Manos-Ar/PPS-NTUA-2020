@@ -23,5 +23,11 @@ From the `1st_exec` directory on local to transfer the `1st_exec` directory on r
 ```
 rsync -vr --rsh "ssh parlab07@orion.cslab.ece.ntua.gr ssh" parlab07@scirouter.cslab.ece.ntua.gr:/home/parallel/parlab07/a1/ .
 ```
+
+From the `Floyd_Warshall` directory on local to transfer the `metrics` directory on remote:
+```
+rsync -vr --rsh "ssh parlab07@orion.cslab.ece.ntua.gr ssh" parlab07@scirouter.cslab.ece.ntua.gr:/home/parallel/parlab07/a1/src/Floyd_Warshall/metrics .
+```
+
 ### Rsync Options
 --delete = to delete everything old to the remote directory
