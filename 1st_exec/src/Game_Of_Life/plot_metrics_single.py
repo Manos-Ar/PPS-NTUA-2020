@@ -52,9 +52,9 @@ print("y_Axis: ", y_Axis)
 
 x_ticks = np.arange(0, len(x_Axis), 1)
 i = 0
-
-for tuple in y_Axis.items():
     fig, ax = plt.subplots()
+for tuple in y_Axis.items():
+
     ax.grid(True)
     ax.set_facecolor('#f2f5f0')
     ax.set_xlabel("Number of Threads")
@@ -83,7 +83,6 @@ x_ticks = np.arange(0, len(x_Axis), 1)
 i = 0
 
 for tuple in y_Axis.items():
-
     fig, ax = plt.subplots()
     ax.grid(True)
     ax.set_facecolor('#f2f5f0')
