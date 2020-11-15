@@ -9,7 +9,7 @@ From the local machine, this command:
 
 From the `1st_exec` directory on local to transfer the `1st_exec` directory on remote:
 ```
-rsync -vr --rsh "ssh parlab07@orion.cslab.ece.ntua.gr ssh" . parlab07@scirouter.cslab.ece.ntua.gr:/home/parallel/parlab07/a1/
+rsync -vr --delete --rsh "ssh parlab07@orion.cslab.ece.ntua.gr ssh" . parlab07@scirouter.cslab.ece.ntua.gr:/home/parallel/parlab07/a1/
 ```
 
 ### Scirouter -> Local (Without Proxy)

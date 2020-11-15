@@ -1,6 +1,6 @@
 .phony: all clean
 
-all: fw fw_sr fw_tiled fw_ser_test fw_tiled_print
+all: fw fw_sr fw_tiled fw_ser_test
 
 CC=gcc
 CFLAGS= -Wall -O3 -fopenmp -Wno-unused-variable
@@ -17,8 +17,6 @@ fw_tiled: fw_tiled.c
 	$(CC) $(OBJS) fw_tiled.c -o fw_tiled $(CFLAGS)
 fw_ser_test: fw_ser_test.c
 	$(CC) $(OBJS) fw_ser_test.c -o fw_ser_test $(CFLAGS)
-fw_tiled_print: fw_tiled_print.c
-	$(CC) $(OBJS) fw_tiled_print.c -o fw_tiled_print $(CFLAGS)
 
 %.o: %.c $(HDEPS)
 	$(CC) $(CFLAGS) -c $< -o $@

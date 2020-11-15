@@ -7,7 +7,7 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
 if len(sys.argv) < 2:
-    print("Usage: plot_metrics.py <input_file>")
+    print("Usage: plot_metrics.py <input_file_path>")
     exit(-1)
 
 outFile = sys.argv[1]
@@ -36,7 +36,7 @@ with open(outFile) as fp:
         line = fp.readline()
 
 for key, val in times.items():
-    speedups[key] = [x/val[0] for x in val]
+    speedups[key] = [val[0]/x for x in val]
 print ("times: ", times)
 print ("speedups: ", speedups)
 
@@ -91,7 +91,7 @@ ax.set_xticklabels(x_Axis, rotation=0)
 
 i = 0
 for tuple in y_Axis.items():
-    # print(tuple)
+    print(tuple)
     ax.plot(x_ticks, tuple[1], label="N = " + str(tuple[0]), color=colors[i%len(colors)], marker=markers[i%len(markers)])
     i = i + 1
 

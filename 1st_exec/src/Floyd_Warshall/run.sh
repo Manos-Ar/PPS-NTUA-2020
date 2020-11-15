@@ -5,7 +5,7 @@ sizes=( 1024 2048 4096 )
 block=( 32 64 128 256 )
 
 if [ ! -d "${dir}" ]; then
-	mkdir metrics
+	mkdir ${dir}
 fi
 
 if [ -d "${dir}/${1}" ]; then
