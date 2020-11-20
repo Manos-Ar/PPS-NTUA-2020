@@ -75,6 +75,7 @@ void FW_SR (int **A, int arow, int acol,
 
      if(myN<=bsize)
         for(k=0; k<myN; k++)
+        //#pragma omp parallel for private(j)
            for(i=0; i<myN; i++)
               for(j=0; j<myN; j++)
                  A[arow+i][acol+j]=min(A[arow+i][acol+j], B[brow+i][bcol+k]+C[crow+k][ccol+j]);
