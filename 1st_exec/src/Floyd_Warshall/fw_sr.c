@@ -75,14 +75,14 @@ void FW_SR (int **A, int arow, int acol,
 
      if(myN<=bsize)
         for(k=0; k<myN; k++)
-        //#pragma omp parallel for private(j)
+        // #pragma omp parallel for private(j)
            for(i=0; i<myN; i++)
               for(j=0; j<myN; j++)
                  A[arow+i][acol+j]=min(A[arow+i][acol+j], B[brow+i][bcol+k]+C[crow+k][ccol+j]);
      else {
        #pragma omp parallel
        {
-         #pragma omp single
+         #pragma omp single nowait
          {
             FW_SR(A, arow,       acol,       B, brow,       bcol,       C, crow,       ccol,       myN/2, bsize);
 

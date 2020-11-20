@@ -19,7 +19,7 @@
 module load openmp
 cd /home/parallel/parlab07/a1/src/Floyd_Warshall
 
-implementations=( "fw" "fw_sr" "fw_tiled" )
+implementations=( "fw" "fw_sr" "fw_tiled" "fw_tiled_opt" )
 
 for implementation in "${implementations[@]}";
 do
