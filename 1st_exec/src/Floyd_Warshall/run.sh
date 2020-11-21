@@ -2,7 +2,7 @@
 dir="metrics"
 nthreads=( 1 2 4 8 16 32 64 )
 sizes=( 1024 2048 4096 )
-block=( 32 64 128 256 )
+block=( 8 16 32 64 128 256 )
 
 if [ ! -d "${dir}" ]; then
 	mkdir ${dir}

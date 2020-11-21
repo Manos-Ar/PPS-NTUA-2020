@@ -62,7 +62,6 @@ int main(int argc, char **argv)
               #pragma omp task firstprivate(j)
               FW(A,k,k,j,B);
 
-          #pragma omp taskwait
 
            for(i=0; i<k; i+=B)   // NW tiles
               for(j=0; j<k; j+=B)

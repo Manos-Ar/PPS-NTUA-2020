@@ -36,50 +36,59 @@ int main(int argc, char **argv)
 
      graph_init_random(A,-1,N,128*N);
 
+     int _k;
+
      gettimeofday(&t1,0);
 
      for(k=0;k<N;k+=B){
 
-       FW(A,k,k,k,B);        // CR tile
+       #pragma omp parallel
+       {
+         FW(A,k,k,k,B);        // CR tile
+        //  for(_k=k; _k<k+B; _k++)
+        //   #pragma omp for private(j) nowait
+        //     for(i=k; i<k+B; i++)
+        //        for(j=k; j<k+B; j++)
+        //           A[i][j]=min(A[i][j], A[i][_k]+A[_k][j]);
+        // #pragma omp barrier
 
-       #pragma omp parallel for
-         for(i=0; i<k; i+=B)   // N tiles
-            // #pragma omp task firstprivate(i)
-            FW(A,k,i,k,B);
-      #pragma omp parallel for
-         for(i=k+B; i<N; i+=B) // S tiles
-            // #pragma omp task firstprivate(i)
-            FW(A,k,i,k,B);
-      #pragma omp parallel for
-         for(j=0; j<k; j+=B)   // W tiles
-            // #pragma omp task firstprivate(j)
-            FW(A,k,k,j,B);
-      #pragma omp parallel for
-         for(j=k+B; j<N; j+=B) // E tiles
-            // #pragma omp task firstprivate(j)
-            FW(A,k,k,j,B);
+         #pragma omp for nowait schedule(dynamic)
+           for(i=0; i<k; i+=B)   // N tiles
+              FW(A,k,i,k,B);
 
-        // #pragma omp taskwait
-      #pragma omp parallel for private(j)
+        #pragma omp for private(j) nowait schedule(dynamic)
          for(i=0; i<k; i+=B)   // NW tiles
             for(j=0; j<k; j+=B)
-              // #pragma omp task firstprivate(i, j)
                FW(A,k,i,j,B);
-       #pragma omp parallel for private(j)
+
+        #pragma omp for private(j) nowait schedule(dynamic)
          for(i=0; i<k; i+=B)   // NE tiles
             for(j=k+B; j<N; j+=B)
-              // #pragma omp task firstprivate(i, j)
                FW(A,k,i,j,B);
-       #pragma omp parallel for private(j)
-         for(i=k+B; i<N; i+=B) // SW tiles
-            for(j=0; j<k; j+=B)
-              // #pragma omp task firstprivate(i, j)
-               FW(A,k,i,j,B);
-       #pragma omp parallel for private(j)
-         for(i=k+B; i<N; i+=B) // SE tiles
-            for(j=k+B; j<N; j+=B)
-              // #pragma omp task firstprivate(i, j)
-               FW(A,k,i,j,B);
+
+        #pragma omp for nowait schedule(dynamic)
+         for(j=0; j<k; j+=B)   // W tiles
+            FW(A,k,k,j,B);
+
+            #pragma omp for nowait schedule(dynamic)
+          for(j=k+B; j<N; j+=B) // E tiles
+             FW(A,k,k,j,B);
+
+
+         #pragma omp for nowait schedule(dynamic)
+           for(i=k+B; i<N; i+=B) // S tiles
+              FW(A,k,i,k,B);
+
+          #pragma omp for private(j) nowait schedule(dynamic)
+           for(i=k+B; i<N; i+=B) // SW tiles
+              for(j=0; j<k; j+=B)
+                 FW(A,k,i,j,B);
+
+          #pragma omp for private(j) nowait schedule(dynamic)
+           for(i=k+B; i<N; i+=B) // SE tiles
+              for(j=k+B; j<N; j+=B)
+                 FW(A,k,i,j,B);
+       }
 
      }
      gettimeofday(&t2,0);
@@ -88,7 +97,7 @@ int main(int argc, char **argv)
      printf("FW_TILED,%d,%d,%.4f\n", N,B,time);
 
      // FILE *output;
-     // output=fopen("output_fw_tiled.txt","w");
+     // output=fopen("output_fw_tiled_opt.txt","w");
      //
      // for(i=0; i<N; i++){
      //    for(j=0; j<N; j++)
