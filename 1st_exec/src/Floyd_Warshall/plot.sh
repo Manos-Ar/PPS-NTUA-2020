@@ -1,7 +1,7 @@
 #!/bin/bash
 DIR_PLOTS="plots"
 DIR_METRICS=metrics
-implementations=( "fw" "fw_sr" "fw_tiled" )
+implementations=( "fw" "fw_sr" "fw_tiled" "fw_tiled_opt" )
 
 if [ ! -d "${DIR_PLOTS}" ]; then
 	mkdir ${DIR_PLOTS}

@@ -14,8 +14,8 @@ if len(sys.argv) < 2:
 outDir = sys.argv[1]
 threads_confs = [1, 2, 4, 8, 16, 32, 64]
 array_sizes = [1024, 2048, 4096]
-block_size = [32, 64, 128, 256]
-implementations = {"fw": "", "fw_sr": "Recursive", "fw_tiled": "Tiled"}
+block_size = [16, 32, 64, 128, 256]
+implementations = {"fw": "", "fw_sr": "Recursive", "fw_tiled": "Tiled", "fw_tiled_opt": "Tiled Optimal"}
 name = implementations[outDir.split("/")[1]]
 
 times = {}
@@ -53,7 +53,7 @@ for arr_size, b_size in times.items():
 
 
 markers = ['x', 'o', '+', '*']
-colors = ["royalblue", "red", "darkgreen", "pink"]
+colors = ["royalblue", "red", "darkgreen", "pink", "orange"]
 
 ## PLOT TIMES
 x_Axis = np.array(threads_confs)
