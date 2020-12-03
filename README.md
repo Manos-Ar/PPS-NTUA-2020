@@ -30,6 +30,35 @@ alias ssh-scirouter="ssh -A -t parlab07@orion.cslab.ece.ntua.gr ssh -A -t parlab
 ```
 
 # SSH File Sharing
+
+### Local -> Scirouter (Without Proxy)
+From the local machine, this command:
+- If the directory on the remote machine does not exists:
+  - It creates the directory and transfers all its contents.
+- If the directory on the remote machine exists:
+  - It transfers all its contents in the existing directory.
+
+From the `num_exec` directory on local to transfer the `num_exec` directory on remote:
+```
+rsync -vr --delete --rsh "ssh parlab07@orion.cslab.ece.ntua.gr ssh" . parlab07@scirouter.cslab.ece.ntua.gr:/home/parallel/parlab07/a_num/
+```
+
+### Scirouter -> Local (Without Proxy)
+From the local machine, this command:
+- If the directory on the local machine does not exists:
+  - It creates the directory and transfers all its contents.
+- If the directory on the local machine exists:
+  - It transfers all its contents in the existing directory.
+
+From the `num_exec` directory on local to transfer the `num_exec` directory on remote:
+```
+rsync -vr --rsh "ssh parlab07@orion.cslab.ece.ntua.gr ssh" parlab07@scirouter.cslab.ece.ntua.gr:/home/parallel/parlab07/a_num/ .
+```
+
+### Rsync Options
+--delete = to delete everything old to the remote directory
+
+
 ## Local -> Orion -> Scirouter (With Proxy)
 ### Local -> Orion
 On the Local Machine:
