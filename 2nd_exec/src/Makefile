@@ -3,17 +3,21 @@ CFLAGS=-O3 -lm -Wall
 RES=-DPRINT_RESULTS
 CONV=-DTEST_CONV
 
-all: jacobi seidelsor redblacksor
+all: jacobi jacobi_mpi
+# seidelsor redblacksor
 
 jacobi: Jacobi_serial.c utils.c
-	$(CC) $(CFLAGS) $(RES) $(CONV) Jacobi_serial.c utils.c -o jacobi
+	$(CC) $(CFLAGS) $(RES) $(CONV) Jacobi_serial.c utils.c -o jacobi.out
 
-seidelsor: GaussSeidelSOR_serial.c utils.c
-	$(CC) $(CFLAGS) $(RES) $(CONV) GaussSeidelSOR_serial.c utils.c -o seidelsor
+jacobi_mpi: Jacobi_mpi.c utils.c
+	$(CC) $(CFLAGS) $(RES) $(CONV) Jacobi_mpi.c utils.c -o jacobi_mpi.out
 
-redblacksor: RedBlackSOR_serial.c utils.c 
-	$(CC) $(CFLAGS) $(RES) $(CONV) RedBlackSOR_serial.c utils.c -o redblacksor
+# seidelsor: GaussSeidelSOR_serial.c utils.c
+# 	$(CC) $(CFLAGS) $(RES) $(CONV) GaussSeidelSOR_serial.c utils.c -o seidelsor
+
+# redblacksor: RedBlackSOR_serial.c utils.c 
+# 	$(CC) $(CFLAGS) $(RES) $(CONV) RedBlackSOR_serial.c utils.c -o redblacksor
 
 clean:
-	rm jacobi seidelsor redblacksor
+	rm -f  *.out
 
