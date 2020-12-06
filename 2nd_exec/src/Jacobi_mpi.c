@@ -124,10 +124,85 @@ int main(int argc, char ** argv) {
     //----Rank 0 scatters the global matrix----//
 
 	//*************TODO*******************//
-    // U=allocate2d(global_padded[0],global_padded[1]);   
-    // init2d(U,global[0],global[1]);
-    // tmp
-    MPI_Scatter(U, 1, global_block, &u_previous[1][1], 1, local_block, 0, MPI_COMM_WORLD);
+    // MPI_Scatter(U, 1, global_block, &u_previous[1][1], 1, local_block, 0, MPI_COMM_WORLD);
+    // double rec[size];
+    // double **send;
+    // if(rank==0){
+    //     // send = malloc(size*sizeof(int));
+    //     // for(i=0; i < size; i++)
+    //     //     send[i]=i;
+    //     send=allocate2d(size,size);
+    //      for(i=0; i < size; i++)
+    //      {
+    //         for(j=0; j < size; j++){
+    //             send[i][j]=i+j;
+    //             printf("%f ", send[i][j]);
+    //         }
+    //         printf("\n");
+    //      }
+    // }
+
+    // MPI_Datatype tmp,col;
+    // MPI_Type_vector(size,1,size,MPI_DOUBLE,&tmp);
+    // // MPI_Type_contiguous(size,MPI_DOUBLE,&tmp);
+
+    // // MPI_Type_create_resized(tmp,0,sizeof(double),&col);
+    // MPI_Type_commit(&tmp);
+    MPI_Datatype tmp,tmp_1;
+    MPI_Type_contiguous(local[0]*local[1],MPI_DOUBLE,&tmp);
+    MPI_Type_commit(&tmp);
+    double *rec=malloc(local[0]*local[1]*sizeof(double));
+     MPI_Type_vector(local[0],local[1],global[0],MPI_DOUBLE,&tmp_1);
+     MPI_Type_commit(&tmp_1);
+    
+    // rec=allocate2d(local[0],local[1]);
+    
+
+    if(rank==0){
+        double *A=malloc(global[0]*global[1]*sizeof(double));
+        printf("\n A: \n");
+        for(i=0; i < global[0]; i++){
+            if(i%local[0]==0){
+                for(int m=0; m<global[1]; m++)
+                    printf("----------");
+                printf("\n");
+                }
+            for(j=0; j < global[1]; j++){
+                if(j%local[1]==0)
+                    printf("|");
+                A[i*global[0]+j]=i*global[0]+j;
+                printf("%.0f \t", A[i*global[0]+j]);}
+            printf("\n");
+        }
+        int k=0;
+        for(i=0; i<global[0] ; i+=local[0])
+            for(j=0; j<global[1]; j+=local[1]){
+                MPI_Send(&A[i*global[0]+j],1,tmp_1, k,0,MPI_COMM_WORLD);
+                // printf("\n send ok k: %d i: %d j: %d\n\n",k,i,j);
+                k++;
+            }
+        }
+        // for(int i=0; i<size ; i++)
+    MPI_Recv(rec,1,tmp, 0,0,MPI_COMM_WORLD,MPI_STATUS_IGNORE);
+    // printf("rec ok\n");
+
+    // MPI_Scatter(send, 1, tmp, rec, size, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+    // printf("rank: %d receive: \n", rank);
+    for(i=0; i < local[0]; i++){
+        printf("rank: %d | ", rank);
+        for(j=0; j < local[1]; j++)
+            printf("%.0f ", rec[i*local[0]+j]);
+        printf("\n");
+    }
+
+
+    // for(i=0; i < local[0]+2; i++)
+    //     {
+    //     for(j=0; j < local[0]+2; j++)
+    //         printf("%d ", u_previous[i][j]);
+    //     printf("\n");
+        // }
+    // printf("%d %d \n", rank, size);
 
 
 	/*Fill your code here*/
