@@ -20,4 +20,4 @@ jacobi_mpi: Jacobi_mpi.c utils.c
 # 	$(CC) $(CFLAGS) $(RES) $(CONV) RedBlackSOR_serial.c utils.c -o redblacksor
 
 clean:
-	rm -f  *.out
+	rm -f  *.out res*
