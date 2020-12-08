@@ -7,11 +7,11 @@ CONV=-DTEST_CONV
 all: jacobi jacobi_mpi
 # seidelsor redblacksor
 
-jacobi: Jacobi_serial.c utils.c
-	$(CC) $(CFLAGS) $(RES) $(CONV) Jacobi_serial.c utils.c -o jacobi.out
+jacobi: jacobi_serial.c utils.c
+	$(CC) $(CFLAGS) $(RES) $(CONV) jacobi_serial.c utils.c -o jacobi.out
 
-jacobi_mpi: Jacobi_mpi.c utils.c
-	$(MPICC) $(CFLAGS) $(RES) $(CONV) Jacobi_mpi.c utils.c -o jacobi_mpi.out
+jacobi_mpi: jacobi_mpi.c utils.c
+	$(MPICC) $(CFLAGS) $(RES) $(CONV) jacobi_mpi.c utils.c -o jacobi_mpi.out
 
 # seidelsor: GaussSeidelSOR_serial.c utils.c
 # 	$(CC) $(CFLAGS) $(RES) $(CONV) GaussSeidelSOR_serial.c utils.c -o seidelsor
