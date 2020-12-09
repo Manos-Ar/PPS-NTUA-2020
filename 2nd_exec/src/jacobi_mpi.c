@@ -4,6 +4,8 @@
 #include <sys/time.h>
 #include "mpi.h"
 #include "utils.h"
+#include <string.h>
+
 
 void Jacobi(double ** u_previous, double ** u_current, int X_min, int X_max, int Y_min, int Y_max) {
 	int i,j;
@@ -21,7 +23,6 @@ int main(int argc, char ** argv) {
     int i,j,t;
     int global_converged=0,converged=0; //flags for convergence, global and per process
     MPI_Datatype dummy;     //dummy datatype used to align user-defined datatypes in memory
-    double omega; 			//relaxation factor - useless for Jacobi
 
     struct timeval tts,ttf,tcs,tcf;   //Timers: total-> tts,ttf, computation -> tcs,tcf
     double ttotal=0,tcomp=0,total_time,comp_time;
@@ -73,7 +74,6 @@ int main(int argc, char ** argv) {
     }
 
 	//Initialization of omega
-    omega=2.0/(1+sin(3.14/global[0]));
 
     //----Allocate global 2D-domain and initialize boundary values----//
     //----Rank 0 holds the global 2D-domain----//
@@ -109,7 +109,7 @@ int main(int argc, char ** argv) {
 
     //----Rank 0 defines positions and counts of local blocks (2D-subdomains) on global matrix----//
     int * scatteroffset, * scattercounts;
-    double *u;
+    double *u = NULL;
     if (rank==0) {
         u= &U[0][0];
         scatteroffset=(int*)malloc(size*sizeof(int));
@@ -140,7 +140,7 @@ int main(int argc, char ** argv) {
 
 
     MPI_Scatterv(u, scattercounts, scatteroffset, global_block, &u_previous[1][1], 1, local_block, 0, MPI_COMM_WORLD);
-
+    memcpy(u_current,u_previous,(local[0]+2)*(local[1]+2));
     // if(rank==1)
     // for(i=1; i <= local[0]; i++)
     //     {
@@ -165,8 +165,8 @@ int main(int argc, char ** argv) {
      //************************************//
 
 
-    if (rank==0)
-        free2d(U);
+    // if (rank==0)
+    //     free2d(U);
 
  
      
@@ -205,8 +205,8 @@ int main(int argc, char ** argv) {
     MPI_Cart_shift(CART_COMM, 0, 1, &north, &south);
     MPI_Cart_shift(CART_COMM, 1, 1, &west, &east);
     
-    printf("rank: %d\n", rank);
-    printf("%d %d %d %d \n", north, south, west, east);
+    // printf("rank: %d\n", rank);
+    // printf("%d %d %d %d \n", north, south, west, east);
     
     
 
@@ -268,6 +268,9 @@ int main(int argc, char ** argv) {
 
 
  	//----Computational core----//   
+    int counts;
+    MPI_Request requests[8];
+
 	gettimeofday(&tts, NULL);
     #ifdef TEST_CONV
     for (t=0;t<T && !global_converged;t++) {
@@ -280,11 +283,40 @@ int main(int argc, char ** argv) {
 
 
 	 	//*************TODO*******************//
-     
+        swap=u_previous;
+		u_previous=u_current;
+		u_current=swap;
  
+        counts=0;
+        if(north >= 0){
+            MPI_Isend(&u_previous[1][1], 1, row, north, rank, CART_COMM, &requests[counts++]);
+            MPI_Irecv(&u_previous[0][1], 1, row, north, north, CART_COMM, &requests[counts++]);
+        }
 
+        if(south >= 0){
+            MPI_Isend(&u_previous[local[0]][1], 1, row, south, rank, CART_COMM, &requests[counts++]);
+            MPI_Irecv(&u_previous[local[0]+1][1], 1, row, south, south, CART_COMM, &requests[counts++]);
+        }
 
+        if(west >=0){
+            MPI_Isend(&u_previous[1][1], 1, column, west, rank, CART_COMM, &requests[counts++]);
+            MPI_Irecv(&u_previous[0][1], 1, column, west, west, CART_COMM, &requests[counts++]);
+        }
 
+        if(east >=0){
+            MPI_Isend(&u_previous[1][local[1]], 1, column, east, rank, CART_COMM, &requests[counts++]);
+            MPI_Irecv(&u_previous[1][local[1]+1], 1, column, east, east, CART_COMM, &requests[counts++]);
+        }
+        
+        MPI_Waitall(counts, requests, MPI_STATUSES_IGNORE);
+
+        gettimeofday(&tcs,NULL);
+
+        Jacobi(u_previous, u_current, i_min, i_max, j_min, j_max);
+
+        gettimeofday(&tcf,NULL);
+
+        tcomp+=(tcf.tv_sec-tcs.tv_sec)+(tcf.tv_usec-tcs.tv_usec)*0.000001;
 
 		/*Fill your code here*/
 
@@ -292,31 +324,12 @@ int main(int argc, char ** argv) {
 		/*Compute and Communicate*/
 
 		/*Add appropriate timers for computation*/
-	
-
 		
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 		#ifdef TEST_CONV
         if (t%C==0) {
 			//*************TODO**************//
-			/*Test convergence*/
-
+			converged=converge(u_previous,u_current,local[0]+1,local[1]+1);  
+            MPI_Allreduce(&converged, &global_converged, 1, MPI_INT, MPI_LAND, MPI_COMM_WORLD); 
 
 		}		
 		#endif
@@ -338,31 +351,17 @@ int main(int argc, char ** argv) {
 
     //----Rank 0 gathers local matrices back to the global matrix----//
    
-    if (rank==0) {
-            U=allocate2d(global_padded[0],global_padded[1]);
-    }
+    // if (rank==0) {
+    //         U=allocate2d(global_padded[0],global_padded[1]);
+    //     }
 
 
 	//*************TODO*******************//
 
 
 
-	/*Fill your code here*/
 
-
-
-
-
-
-
-
-
-
-     //************************************//
-
-
-	
-   
+    MPI_Gatherv(&u_previous[1][1], 1, local_block, u, scattercounts, scatteroffset, global_block, 0, MPI_COMM_WORLD);
 
 	//----Printing results----//
 
