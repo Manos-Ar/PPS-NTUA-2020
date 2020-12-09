@@ -56,6 +56,7 @@ int main(int argc, char ** argv) {
     MPI_Cart_create(MPI_COMM_WORLD,2,grid,periods,0,&CART_COMM);    //communicator creation
     MPI_Cart_coords(CART_COMM,rank,2,rank_grid);	                //rank mapping on the new communicator
 
+
     //----Compute local 2D-subdomain dimensions----//
     //----Test if the 2D-domain can be equally distributed to all processes----//
     //----If not, pad 2D-domain----//
@@ -119,22 +120,22 @@ int main(int argc, char ** argv) {
                 scatteroffset[i*grid[1]+j]=(local[0]*local[1]*grid[1]*i+local[1]*j);
             }
 
-        for (i=0;i<global[0];i++)
-        {
-            if(i%local[0]==0){
-                for(int m=0; m<global[1]; m++)
-                    printf("----------");
-                printf("\n");
-            }
-            for(j=0;j<global[1];j++)
-            {
-                if(j%local[1]==0)
-                    printf("|");
-                U[i][j]=i*global[0]+j;
-                printf("%.0f \t",U[i][j]);
-            }   
-            printf("\n"); 
-        }
+        // for (i=0;i<global[0];i++)
+        // {
+        //     if(i%local[0]==0){
+        //         for(int m=0; m<global[1]; m++)
+        //             printf("----------");
+        //         printf("\n");
+        //     }
+        //     for(j=0;j<global[1];j++)
+        //     {
+        //         if(j%local[1]==0)
+        //             printf("|");
+        //         U[i][j]=i*global[0]+j;
+        //         printf("%.0f \t",U[i][j]);
+        //     }   
+        //     printf("\n"); 
+        // }
     }
 
 
@@ -157,7 +158,7 @@ int main(int argc, char ** argv) {
 
 
 
-
+    
 
 
 
@@ -178,10 +179,18 @@ int main(int argc, char ** argv) {
 	/*Fill your code here*/
 
 
+    MPI_Datatype column;
+    MPI_Type_vector(local[0],1,local[1]+2,MPI_DOUBLE,&column);
+    MPI_Type_commit(&column);
+
+    MPI_Datatype row;
+    MPI_Type_contiguous (local[1],MPI_DOUBLE,&row);
+    MPI_Type_commit(&row);
 
 
 
 
+    // printf("rank: %d (%d,%d)\n", rank, rank_grid[0],rank_grid[1]);
 
 
 	//************************************//
@@ -190,8 +199,16 @@ int main(int argc, char ** argv) {
     //----Find the 4 neighbors with which a process exchanges messages----//
 
 	//*************TODO*******************//
+
     int north, south, east, west;
 
+    MPI_Cart_shift(CART_COMM, 0, 1, &north, &south);
+    MPI_Cart_shift(CART_COMM, 1, 1, &west, &east);
+    
+    printf("rank: %d\n", rank);
+    printf("%d %d %d %d \n", north, south, west, east);
+    
+    
 
 
 	/*Fill your code here*/
@@ -212,13 +229,27 @@ int main(int argc, char ** argv) {
 	//*************TODO*******************//
 
     int i_min,i_max,j_min,j_max;
-
-
-
 	/*Fill your code here*/
 
+    if(north > -1)
+        i_min = 1;
+    else
+        i_min = 2;
 
+    if(south > -1)
+        i_max = local[0] +1;
+    else
+        i_max = local[0];
 
+    if(west > -1)
+        j_min = 1;
+    else
+        j_min = 2;
+
+    if(east > -1)
+        j_max = local[1] + 1;
+    else
+        j_max = local[1];
 
 
 	/*Three types of ranges:
