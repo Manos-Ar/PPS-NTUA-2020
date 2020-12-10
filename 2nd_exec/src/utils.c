@@ -9,8 +9,8 @@ double max(double a, double b) {
 
 int converge(double ** u_previous, double ** u_current, int X, int Y) {
 	int i,j;
-	for (i=1;i<X;i++)
-		for (j=1;j<Y;j++)
+	for (i=0;i<X;i++)
+		for (j=0;j<Y;j++)
 			if (fabs(u_current[i][j]-u_previous[i][j])>e) return 0;
 	return 1;
 }

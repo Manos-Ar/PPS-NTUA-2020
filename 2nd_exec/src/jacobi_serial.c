@@ -67,6 +67,7 @@ int main ( int argc, char ** argv ) {
 			converged=converge(u_previous,u_current,X,Y);
 		#endif
 	}
+	printf("t: %d\n",t);
 	printf("Jacobi X %d Y %d Iter %d Time %lf midpoint %lf\n",X,Y,t-1,time, u_current[X/2][Y/2]);
 
 	#ifdef PRINT_RESULTS
