@@ -160,8 +160,8 @@ int main(int argc, char ** argv) {
     // MPI_Scatterv(u, scattercounts, scatteroffset, global_block, &u_current[1][1], 1, local_block, 0, MPI_COMM_WORLD);
     // memcpy(u_current,u_previous,(local[0]+2)*(local[1]+2));
 
-    for(int i=0; i<local[0]+2; i++)
-        for(int j=0; j<local[1]+2; j++)
+    for(i=0; i<local[0]+2; i++)
+        for(j=0; j<local[1]+2; j++)
             u_current[i][j]=u_previous[i][j];
 
     // printf("%d %d\n", u_current, u_previous);

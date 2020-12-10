@@ -1,8 +1,14 @@
 CC=gcc
 MPICC=mpicc
 CFLAGS=-O3 -lm -Wall
-RES=-DPRINT_RESULTS
-CONV=-DTEST_CONV
+# RES=-DPRINT_RESULTS
+# CONV=-DTEST_CONV
+RES=
+CONV=
+
+
+
+
 
 all: jacobi jacobi_mpi
 # seidelsor redblacksor
