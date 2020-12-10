@@ -21,6 +21,8 @@ module load openmpi/1.8.3#!/bin/bash
 ## Start
 ## Run make in the src folder (modify properly)
 
+mkdir -p ${HOME}/tmp
+export TMPDIR=${HOME}/tmp
 module load openmpi/1.8.3
 cd /home/parallel/parlab07/a2/src
 
@@ -30,3 +32,4 @@ for implementation in "${implementations[@]}";
 do
   ./run.py ${implementation}
 done
+rm -r ${HOME}/tmp
