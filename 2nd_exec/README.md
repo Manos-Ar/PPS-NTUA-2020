@@ -29,10 +29,20 @@ rsync -vr --rsh "ssh parlab07@orion.cslab.ece.ntua.gr ssh" parlab07@scirouter.cs
 ```
 --delete = to delete everything old to the remote directory
 ```
-### MPI compile and run 
+### MPI compile and run
 ```
 mpicc -O3 -Wall test_mpi.c
 ```
 ```
 mpirun -n 4 ./test_mpi.out
+```
+
+### Compile All
+```
+qsub -q parlab make_on_queue.sh
+```
+
+### Run All
+```
+qsub -q parlab run_on_queue.sh
 ```

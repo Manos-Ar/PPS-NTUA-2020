@@ -18,4 +18,7 @@
 
 module load openmpi/1.8.3
 cd /home/parallel/parlab07/a2/src
+## Make with no results
 make
+## Make with results
+# make RES=${1}

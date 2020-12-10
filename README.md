@@ -142,3 +142,10 @@ qstat -f 26160.localhost
 ```
 qdel 26160
 ```
+
+## Create Aliases on `.bashrc`
+```
+alias qsub_make='qsub -q parlab make_on_queue.sh'
+alias qsub_parlab='qsub -q parlab run_on_queue.sh'
+alias qsub_sandman='qsub -q serial -l nodes=sandman:ppn=64 run_on_queue.sh'
+```

@@ -27,41 +27,12 @@ export TMPDIR=${HOME}/tmp
 module load openmpi/1.8.3
 cd /home/parallel/parlab07/a2/src
 
-# implementations=( "jacobi" "gauss_seidel" "red_black_sor" )
-implementations=( "jacobi" )
-
-# seidelsor_mpi.out redblacksor_mpi.out
-
 dir="metrics"
 
 if [ ! -d "${dir}" ]; then
 	mkdir ${dir}
 fi
 
-for i in 1 2 3
-do
-  for execfile in jacobi_mpi
-  do
-
-      if [ -d "${dir}/${execfile}" ]; then
-  	    rm -rf "${dir}/${execfile}"
-  	    mkdir "${dir}/${execfile}"
-      else
-  	    mkdir "${dir}/${execfile}"
-      fi
-
-  	for size in 2048 4096 6144
-  	do
-      echo "Iteration ${i}" >> "${dir}/${execfile}/ScalabilityResultsMPI_${size}.txt"
-  		mpirun  -np 1 --map-by node --mca btl self,tcp ${execfile}.out ${size} ${size} 1 1 >>"${dir}/${execfile}/ScalabilityResultsMPI_${size}.txt"
-  		mpirun  -np 2 --map-by node --mca btl self,tcp ${execfile}.out ${size} ${size} 2 1 >>"${dir}/${execfile}/ScalabilityResultsMPI_${size}.txt"
-  		mpirun  -np 4 --map-by node --mca btl self,tcp ${execfile}.out ${size} ${size} 2 2 >>"${dir}/${execfile}/ScalabilityResultsMPI_${size}.txt"
-  		mpirun  -np 8 --map-by node --mca btl self,tcp ${execfile}.out ${size} ${size} 4 2 >>"${dir}/${execfile}/ScalabilityResultsMPI_${size}.txt"
-  		mpirun  -np 16 --map-by node --mca btl self,tcp ${execfile}.out ${size} ${size} 4 4 >>"${dir}/${execfile}/ScalabilityResultsMPI_${size}.txt"
-  		mpirun  -np 32 --map-by node --mca btl self,tcp ${execfile}.out ${size} ${size} 8 4 >>"${dir}/${execfile}/ScalabilityResultsMPI_${size}.txt"
-  		mpirun  -np 64 --map-by node --mca btl self,tcp ${execfile}.out ${size} ${size} 8 8 >>"${dir}/${execfile}/ScalabilityResultsMPI_${size}.txt"
-  	done
-  done
-done
+./run.sh ${dir}
 
 rm -r ${HOME}/tmp
