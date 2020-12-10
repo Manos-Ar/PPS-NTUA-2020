@@ -1,0 +1,24 @@
+Iteration 1
+GaussSeidelSOR X 6144 Y 6144 Jobs 1 Px 1 Py 1 Iter 256 ComputationTime 109.030957 TotalTime 109.031347 midpoint 0.939493
+GaussSeidelSOR X 6144 Y 6144 Jobs 2 Px 2 Py 1 Iter 256 ComputationTime 54.674133 TotalTime 109.621009 midpoint 0.939493
+GaussSeidelSOR X 6144 Y 6144 Jobs 4 Px 2 Py 2 Iter 256 ComputationTime 27.348575 TotalTime 56.415512 midpoint 0.939493
+GaussSeidelSOR X 6144 Y 6144 Jobs 8 Px 4 Py 2 Iter 256 ComputationTime 13.673096 TotalTime 29.631230 midpoint 0.939493
+GaussSeidelSOR X 6144 Y 6144 Jobs 16 Px 4 Py 4 Iter 256 ComputationTime 8.386044 TotalTime 18.187796 midpoint 0.939493
+GaussSeidelSOR X 6144 Y 6144 Jobs 32 Px 8 Py 4 Iter 256 ComputationTime 6.869904 TotalTime 13.961673 midpoint 0.939493
+GaussSeidelSOR X 6144 Y 6144 Jobs 64 Px 8 Py 8 Iter 256 ComputationTime 4.293907 TotalTime 10.982781 midpoint 0.939493
+Iteration 2
+GaussSeidelSOR X 6144 Y 6144 Jobs 1 Px 1 Py 1 Iter 256 ComputationTime 109.020938 TotalTime 109.021322 midpoint 0.939493
+GaussSeidelSOR X 6144 Y 6144 Jobs 2 Px 2 Py 1 Iter 256 ComputationTime 54.671824 TotalTime 109.631304 midpoint 0.939493
+GaussSeidelSOR X 6144 Y 6144 Jobs 4 Px 2 Py 2 Iter 256 ComputationTime 27.348197 TotalTime 56.424729 midpoint 0.939493
+GaussSeidelSOR X 6144 Y 6144 Jobs 8 Px 4 Py 2 Iter 256 ComputationTime 13.672311 TotalTime 29.630251 midpoint 0.939493
+GaussSeidelSOR X 6144 Y 6144 Jobs 16 Px 4 Py 4 Iter 256 ComputationTime 8.390213 TotalTime 18.195479 midpoint 0.939493
+GaussSeidelSOR X 6144 Y 6144 Jobs 32 Px 8 Py 4 Iter 256 ComputationTime 6.859469 TotalTime 13.950751 midpoint 0.939493
+GaussSeidelSOR X 6144 Y 6144 Jobs 64 Px 8 Py 8 Iter 256 ComputationTime 4.321364 TotalTime 10.985366 midpoint 0.939493
+Iteration 3
+GaussSeidelSOR X 6144 Y 6144 Jobs 1 Px 1 Py 1 Iter 256 ComputationTime 109.022722 TotalTime 109.023130 midpoint 0.939493
+GaussSeidelSOR X 6144 Y 6144 Jobs 2 Px 2 Py 1 Iter 256 ComputationTime 54.673372 TotalTime 109.634398 midpoint 0.939493
+GaussSeidelSOR X 6144 Y 6144 Jobs 4 Px 2 Py 2 Iter 256 ComputationTime 27.350106 TotalTime 56.422034 midpoint 0.939493
+GaussSeidelSOR X 6144 Y 6144 Jobs 8 Px 4 Py 2 Iter 256 ComputationTime 13.672986 TotalTime 29.632304 midpoint 0.939493
+GaussSeidelSOR X 6144 Y 6144 Jobs 16 Px 4 Py 4 Iter 256 ComputationTime 8.387177 TotalTime 18.189167 midpoint 0.939493
+GaussSeidelSOR X 6144 Y 6144 Jobs 32 Px 8 Py 4 Iter 256 ComputationTime 6.853643 TotalTime 13.942561 midpoint 0.939493
+GaussSeidelSOR X 6144 Y 6144 Jobs 64 Px 8 Py 8 Iter 256 ComputationTime 4.307110 TotalTime 10.985844 midpoint 0.939493

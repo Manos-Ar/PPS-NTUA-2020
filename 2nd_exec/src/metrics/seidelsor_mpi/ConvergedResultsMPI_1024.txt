@@ -1,0 +1,6 @@
+Iteration 1
+GaussSeidelSOR X 1024 Y 1024 Jobs 64 Px 8 Py 8 Iter 2601 ComputationTime 0.492663 ConvergedTime 0.000034 TotalTime 1.800905 midpoint 5.642922
+Iteration 2
+GaussSeidelSOR X 1024 Y 1024 Jobs 64 Px 8 Py 8 Iter 2601 ComputationTime 0.491752 ConvergedTime 0.000015 TotalTime 1.801607 midpoint 5.642922
+Iteration 3
+GaussSeidelSOR X 1024 Y 1024 Jobs 64 Px 8 Py 8 Iter 2601 ComputationTime 0.492546 ConvergedTime 0.000013 TotalTime 1.798510 midpoint 5.642922
