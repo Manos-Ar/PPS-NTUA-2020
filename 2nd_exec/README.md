@@ -7,9 +7,9 @@ From the local machine, this command:
 - If the directory on the remote machine exists:
   - It transfers all its contents in the existing directory.
 
-From the `2nd_exec` directory on local to transfer the `2nd_exec` directory on remote:
+From the `src` directory on local to transfer the `src` directory on remote:
 ```
-rsync -vr --delete --rsh "ssh parlab07@orion.cslab.ece.ntua.gr ssh" . parlab07@scirouter.cslab.ece.ntua.gr:/home/parallel/parlab07/a2/
+rsync -vr --delete --rsh "ssh parlab07@orion.cslab.ece.ntua.gr ssh" . parlab07@scirouter.cslab.ece.ntua.gr:/home/parallel/parlab07/a2/src
 ```
 
 ### Scirouter -> Local (Without Proxy)
