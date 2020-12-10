@@ -20,7 +20,7 @@ void Jacobi(double ** u_previous, double ** u_current, int X_min, int X_max, int
 	for (i=X_min;i<X_max;i++)
 		for (j=Y_min;j<Y_max;j++)
 			u_current[i][j]=(u_previous[i-1][j]+u_previous[i+1][j]+u_previous[i][j-1]+u_previous[i][j+1])/4.0;
-    
+
     // for(i=0; i < X_max; i++)
     //     {
     //         for(j=0; j <= Y_max; j++)
@@ -42,9 +42,9 @@ int main(int argc, char ** argv) {
 
     struct timeval tts,ttf,tcs,tcf;   //Timers: total-> tts,ttf, computation -> tcs,tcf
     double ttotal=0,tcomp=0,total_time,comp_time;
-    
+
     double ** U, ** u_current, ** u_previous, ** swap; //Global matrix, local current and previous matrices, pointer to swap between current and previous
-    
+
 
     MPI_Init(&argc,&argv);
     MPI_Comm_size(MPI_COMM_WORLD,&size);
@@ -69,7 +69,7 @@ int main(int argc, char ** argv) {
     MPI_Comm CART_COMM;         //CART_COMM: the new 2D-cartesian communicator
     int periods[2]={0,0};       //periods={0,0}: the 2D-grid is non-periodic
     int rank_grid[2];           //rank_grid: the position of each process on the new communicator
-		
+
     MPI_Cart_create(MPI_COMM_WORLD,2,grid,periods,0,&CART_COMM);    //communicator creation
     MPI_Cart_coords(CART_COMM,rank,2,rank_grid);	                //rank mapping on the new communicator
 
@@ -77,7 +77,7 @@ int main(int argc, char ** argv) {
     //----Compute local 2D-subdomain dimensions----//
     //----Test if the 2D-domain can be equally distributed to all processes----//
     //----If not, pad 2D-domain----//
-    
+
     for (i=0;i<2;i++) {
         if (global[i]%grid[i]==0) {
             local[i]=global[i]/grid[i];
@@ -94,7 +94,7 @@ int main(int argc, char ** argv) {
     //----Allocate global 2D-domain and initialize boundary values----//
     //----Rank 0 holds the global 2D-domain----//
     if (rank==0) {
-        U=allocate2d(global_padded[0],global_padded[1]);   
+        U=allocate2d(global_padded[0],global_padded[1]);
         init2d(U,global[0],global[1]);
         // for (i=0;i<global_padded[0];i++)
         // {
@@ -109,8 +109,8 @@ int main(int argc, char ** argv) {
         //             printf("|");
         //         // U[i][j]=i*global[0]+j;
         //         printf("%f ",U[i][j]);
-        //     }   
-        //     printf("\n"); 
+        //     }
+        //     printf("\n");
         // }
     }
 
@@ -118,13 +118,13 @@ int main(int argc, char ** argv) {
     //----Add a row/column on each size for ghost cells----//
 
     u_previous=allocate2d(local[0]+2,local[1]+2);
-    u_current=allocate2d(local[0]+2,local[1]+2);   
-       
+    u_current=allocate2d(local[0]+2,local[1]+2);
+
     //----Distribute global 2D-domain from rank 0 to all processes----//
-         
+
  	//----Appropriate datatypes are defined here----//
 	/*****The usage of datatypes is optional*****/
-    
+
     //----Datatype definition for the 2D-subdomain on the global matrix----//
 
     MPI_Datatype global_block;
@@ -152,7 +152,7 @@ int main(int argc, char ** argv) {
                 scatteroffset[i*grid[1]+j]=(local[0]*local[1]*grid[1]*i+local[1]*j);
             }
 
-        
+
     }
 
 
@@ -165,7 +165,7 @@ int main(int argc, char ** argv) {
             u_current[i][j]=u_previous[i][j];
 
     // printf("%d %d\n", u_current, u_previous);
-    
+
     // if(rank==1)
     // for(i=1; i <= local[0]; i++)
     //     {
@@ -182,7 +182,7 @@ int main(int argc, char ** argv) {
 
 
 
-    
+
 
 
 
@@ -192,8 +192,8 @@ int main(int argc, char ** argv) {
     // if (rank==0)
     //     free2d(U);
 
- 
-     
+
+
 	//----Define datatypes or allocate buffers for message passing----//
 
 	//*************TODO*******************//
@@ -221,11 +221,11 @@ int main(int argc, char ** argv) {
 
     MPI_Cart_shift(CART_COMM, 0, 1, &north, &south);
     MPI_Cart_shift(CART_COMM, 1, 1, &west, &east);
-    
+
     // printf("rank: %d\n", rank);
     // printf("%d %d %d %d \n", north, south, west, east);
-    
-    
+
+
 
 
 	/*Fill your code here*/
@@ -284,7 +284,7 @@ int main(int argc, char ** argv) {
 
 
 
- 	//----Computational core----//   
+ 	//----Computational core----//
     int counts;
     MPI_Request requests[8];
 
@@ -303,7 +303,7 @@ int main(int argc, char ** argv) {
         swap=u_previous;
 		u_previous=u_current;
 		u_current=swap;
- 
+
         counts=0;
         if(north >= 0){
             MPI_Isend(&u_previous[1][1], 1, row, north, rank, CART_COMM, &requests[counts++]);
@@ -341,26 +341,26 @@ int main(int argc, char ** argv) {
 		/*Compute and Communicate*/
 
 		/*Add appropriate timers for computation*/
-		
+
 		#ifdef TEST_CONV
         if (t%C==0) {
 			//*************TODO**************//
-			converged=j_converge(u_previous,u_current,i_min, i_max, j_min, j_max);  
-			// converged=converge(u_previous,u_current,local[0]+2, local[1]+2);  
-            MPI_Allreduce(&converged, &global_converged, 1, MPI_INT, MPI_LAND, MPI_COMM_WORLD); 
-            
+			converged=j_converge(u_previous,u_current,i_min, i_max, j_min, j_max);
+			// converged=converge(u_previous,u_current,local[0]+2, local[1]+2);
+            MPI_Allreduce(&converged, &global_converged, 1, MPI_INT, MPI_LAND, MPI_COMM_WORLD);
 
-		}		
+
+		}
 		#endif
 
 
 		//************************************//
- 
-         
-        
+
+
+
     }
     gettimeofday(&ttf,NULL);
-    printf("rank: %d t: %d %d \n", rank, t, global_converged);
+    // printf("rank: %d t: %d %d \n", rank, t, global_converged);
 
     ttotal=(ttf.tv_sec-tts.tv_sec)+(ttf.tv_usec-tts.tv_usec)*0.000001;
 
@@ -370,7 +370,7 @@ int main(int argc, char ** argv) {
 
 
     //----Rank 0 gathers local matrices back to the global matrix----//
-   
+
     // if (rank==0) {
     //         U=allocate2d(global_padded[0],global_padded[1]);
     //     }
@@ -384,7 +384,7 @@ int main(int argc, char ** argv) {
     MPI_Gatherv(&u_previous[1][1], 1, local_block, u, scattercounts, scatteroffset, global_block, 0, MPI_COMM_WORLD);
     // if(rank==0){
     //      for(i=0; i <= local[0]+1; i++)
-    //     {   
+    //     {
     //         // printf("rank: %d\n",rank);
 
     //         for(j=0; j <= local[0]+1; j++)
@@ -396,8 +396,8 @@ int main(int argc, char ** argv) {
 
 	//**************TODO: Change "Jacobi" to "GaussSeidelSOR" or "RedBlackSOR" for appropriate printing****************//
     if (rank==0) {
-        printf("Jacobi X %d Y %d Px %d Py %d Iter %d ComputationTime %lf TotalTime %lf midpoint %lf\n",global[0],global[1],grid[0],grid[1],t,comp_time,total_time,U[global[0]/2][global[1]/2]);
-	
+        printf("Jacobi X %d Y %d Jobs %d Px %d Py %d Iter %d ComputationTime %lf TotalTime %lf midpoint %lf\n",global[0],global[1],size,grid[0],grid[1],t,comp_time,total_time,U[global[0]/2][global[1]/2]);
+
         #ifdef PRINT_RESULTS
         char * s=malloc(50*sizeof(char));
         sprintf(s,"resJacobiMPI_%dx%d_%dx%d",global[0],global[1],grid[0],grid[1]);

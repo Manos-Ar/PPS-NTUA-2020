@@ -14,7 +14,7 @@
 #PBS -l walltime=01:00:00
 
 
-## Start 
+## Start
 ##echo "PBS_NODEFILE = $PBS_NODEFILE"
 ##cat $PBS_NODEFILE
 
@@ -38,27 +38,30 @@ if [ ! -d "${dir}" ]; then
 	mkdir ${dir}
 fi
 
-
-
-for execfile in jacobi_mpi
+for i in 1 2 3
 do
+  for execfile in jacobi_mpi
+  do
 
-    if [ -d "${dir}/${execfile}" ]; then
-	    rm -rf "${dir}/${execfile}"
-	    mkdir "${dir}/${execfile}"
-    else
-	    mkdir "${dir}/${execfile}"
-    fi
+      if [ -d "${dir}/${execfile}" ]; then
+  	    rm -rf "${dir}/${execfile}"
+  	    mkdir "${dir}/${execfile}"
+      else
+  	    mkdir "${dir}/${execfile}"
+      fi
 
-	for size in 2048 4096 6144
-	do
-		mpirun  -np 1 --map-by node  ${execfile}.out ${size} ${size} 1 1 >>"${dir}/${execfile}/ScalabilityResultsMPI_${size}.txt"
-		mpirun  -np 2 --map-by node  ${execfile}.out ${size} ${size} 2 1 >>"${dir}/${execfile}/ScalabilityResultsMPI_${size}.txt"
-		mpirun  -np 4 --map-by node   ${execfile}.out ${size} ${size} 2 2 >>"${dir}/${execfile}/ScalabilityResultsMPI_${size}.txt"
-		mpirun  -np 8 --map-by node  ${execfile}.out ${size} ${size} 4 2 >>"${dir}/${execfile}/ScalabilityResultsMPI_${size}.txt"
-		mpirun  -np 16 --map-by node   ${execfile}.out ${size} ${size} 4 4 >>"${dir}/${execfile}/ScalabilityResultsMPI_${size}.txt"
-		mpirun  -np 32 --map-by node   ${execfile}.out ${size} ${size} 8 4 >>"${dir}/${execfile}/ScalabilityResultsMPI_${size}.txt"
-		mpirun  -np 64 --map-by node   ${execfile}.out ${size} ${size} 8 8 >>"${dir}/${execfile}/ScalabilityResultsMPI_${size}.txt"
-	done
+  	for size in 2048 4096 6144
+  	do
+      echo "Iteration ${i}" >> "${dir}/${execfile}/ScalabilityResultsMPI_${size}.txt"
+  		mpirun  -np 1 --map-by node --mca btl self,tcp ${execfile}.out ${size} ${size} 1 1 >>"${dir}/${execfile}/ScalabilityResultsMPI_${size}.txt"
+  		mpirun  -np 2 --map-by node --mca btl self,tcp ${execfile}.out ${size} ${size} 2 1 >>"${dir}/${execfile}/ScalabilityResultsMPI_${size}.txt"
+  		mpirun  -np 4 --map-by node --mca btl self,tcp ${execfile}.out ${size} ${size} 2 2 >>"${dir}/${execfile}/ScalabilityResultsMPI_${size}.txt"
+  		mpirun  -np 8 --map-by node --mca btl self,tcp ${execfile}.out ${size} ${size} 4 2 >>"${dir}/${execfile}/ScalabilityResultsMPI_${size}.txt"
+  		mpirun  -np 16 --map-by node --mca btl self,tcp ${execfile}.out ${size} ${size} 4 4 >>"${dir}/${execfile}/ScalabilityResultsMPI_${size}.txt"
+  		mpirun  -np 32 --map-by node --mca btl self,tcp ${execfile}.out ${size} ${size} 8 4 >>"${dir}/${execfile}/ScalabilityResultsMPI_${size}.txt"
+  		mpirun  -np 64 --map-by node --mca btl self,tcp ${execfile}.out ${size} ${size} 8 8 >>"${dir}/${execfile}/ScalabilityResultsMPI_${size}.txt"
+  	done
+  done
 done
+
 rm -r ${HOME}/tmp
