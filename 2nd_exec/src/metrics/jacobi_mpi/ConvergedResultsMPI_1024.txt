@@ -1,0 +1,28 @@
+Iteration 1
+Jacobi X 1024 Y 1024 Jobs 64 Px 8 Py 8 Iter 599401 ComputationTime 29.825766 ConvergedTime 0.003068 TotalTime 165.912353 midpoint 5.101729
+Iteration 2
+Jacobi X 1024 Y 1024 Jobs 64 Px 8 Py 8 Iter 599401 ComputationTime 29.888708 ConvergedTime 0.003058 TotalTime 166.161522 midpoint 5.101729
+Iteration 3
+Jacobi X 1024 Y 1024 Jobs 64 Px 8 Py 8 Iter 599401 ComputationTime 29.844192 ConvergedTime 0.003078 TotalTime 166.258690 midpoint 5.101729
+Iteration 1
+Jacobi X 1024 Y 1024 Jobs 64 Px 8 Py 8 Iter 599401 ComputationTime 29.784175 ConvergedTime 0.003148 TotalTime 165.982902 midpoint 5.101729
+Iteration 2
+Jacobi X 1024 Y 1024 Jobs 64 Px 8 Py 8 Iter 599401 ComputationTime 29.825249 ConvergedTime 0.002925 TotalTime 165.969194 midpoint 5.101729
+Iteration 3
+Jacobi X 1024 Y 1024 Jobs 64 Px 8 Py 8 Iter 599401 ComputationTime 29.848785 ConvergedTime 0.003088 TotalTime 166.150762 midpoint 5.101729
+Iteration 1
+Jacobi X 1024 Y 1024 Jobs 64 Px 8 Py 8 Iter 599401 ComputationTime 29.928866 ConvergedTime 0.003155 TotalTime 165.957005 midpoint 5.101729
+Iteration 2
+Jacobi X 1024 Y 1024 Jobs 64 Px 8 Py 8 Iter 599401 ComputationTime 29.832174 ConvergedTime 0.003228 TotalTime 165.917664 midpoint 5.101729
+Iteration 3
+--------------------------------------------------------------------------
+It looks like orte_init failed for some reason; your parallel process is
+likely to abort.  There are many reasons that a parallel process can
+fail during orte_init; some of which are due to configuration or
+environment problems.  This failure appears to be an internal failure;
+here's some additional information (which may only be relevant to an
+Open MPI developer):
+
+  orte_session_dir failed
+  --> Returned value Error (-1) instead of ORTE_SUCCESS
+--------------------------------------------------------------------------

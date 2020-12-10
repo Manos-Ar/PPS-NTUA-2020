@@ -1,0 +1,24 @@
+Iteration 1
+Jacobi X 2048 Y 2048 Jobs 1 Px 1 Py 1 Iter 256 ComputationTime 8.419768 TotalTime 8.420099 midpoint 0.000000
+Jacobi X 2048 Y 2048 Jobs 2 Px 2 Py 1 Iter 256 ComputationTime 4.304568 TotalTime 4.368712 midpoint 0.000000
+Jacobi X 2048 Y 2048 Jobs 4 Px 2 Py 2 Iter 256 ComputationTime 2.149566 TotalTime 2.378149 midpoint 0.000000
+Jacobi X 2048 Y 2048 Jobs 8 Px 4 Py 2 Iter 256 ComputationTime 1.057241 TotalTime 1.385792 midpoint 0.000000
+Jacobi X 2048 Y 2048 Jobs 16 Px 4 Py 4 Iter 256 ComputationTime 0.835742 TotalTime 1.146459 midpoint 0.000000
+Jacobi X 2048 Y 2048 Jobs 32 Px 8 Py 4 Iter 256 ComputationTime 0.395823 TotalTime 0.731780 midpoint 0.000000
+Jacobi X 2048 Y 2048 Jobs 64 Px 8 Py 8 Iter 256 ComputationTime 0.056842 TotalTime 0.419653 midpoint 0.000000
+Iteration 2
+Jacobi X 2048 Y 2048 Jobs 1 Px 1 Py 1 Iter 256 ComputationTime 8.420223 TotalTime 8.420563 midpoint 0.000000
+Jacobi X 2048 Y 2048 Jobs 2 Px 2 Py 1 Iter 256 ComputationTime 4.304173 TotalTime 4.367000 midpoint 0.000000
+Jacobi X 2048 Y 2048 Jobs 4 Px 2 Py 2 Iter 256 ComputationTime 2.146612 TotalTime 2.377322 midpoint 0.000000
+Jacobi X 2048 Y 2048 Jobs 8 Px 4 Py 2 Iter 256 ComputationTime 1.058344 TotalTime 1.383373 midpoint 0.000000
+Jacobi X 2048 Y 2048 Jobs 16 Px 4 Py 4 Iter 256 ComputationTime 0.835946 TotalTime 1.145974 midpoint 0.000000
+Jacobi X 2048 Y 2048 Jobs 32 Px 8 Py 4 Iter 256 ComputationTime 0.375990 TotalTime 0.706194 midpoint 0.000000
+Jacobi X 2048 Y 2048 Jobs 64 Px 8 Py 8 Iter 256 ComputationTime 0.056720 TotalTime 0.419652 midpoint 0.000000
+Iteration 3
+Jacobi X 2048 Y 2048 Jobs 1 Px 1 Py 1 Iter 256 ComputationTime 8.417636 TotalTime 8.417949 midpoint 0.000000
+Jacobi X 2048 Y 2048 Jobs 2 Px 2 Py 1 Iter 256 ComputationTime 4.308371 TotalTime 4.368677 midpoint 0.000000
+Jacobi X 2048 Y 2048 Jobs 4 Px 2 Py 2 Iter 256 ComputationTime 2.151334 TotalTime 2.380329 midpoint 0.000000
+Jacobi X 2048 Y 2048 Jobs 8 Px 4 Py 2 Iter 256 ComputationTime 1.058712 TotalTime 1.384628 midpoint 0.000000
+Jacobi X 2048 Y 2048 Jobs 16 Px 4 Py 4 Iter 256 ComputationTime 0.836189 TotalTime 1.159328 midpoint 0.000000
+Jacobi X 2048 Y 2048 Jobs 32 Px 8 Py 4 Iter 256 ComputationTime 0.387216 TotalTime 0.726320 midpoint 0.000000
+Jacobi X 2048 Y 2048 Jobs 64 Px 8 Py 8 Iter 256 ComputationTime 0.058785 TotalTime 0.416822 midpoint 0.000000

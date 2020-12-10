@@ -1,0 +1,62 @@
+Iteration 1
+Jacobi X 6144 Y 6144 Jobs 1 Px 1 Py 1 Iter 256 ComputationTime 75.495632 TotalTime 75.496114 midpoint 0.000000
+Jacobi X 6144 Y 6144 Jobs 2 Px 2 Py 1 Iter 256 ComputationTime 38.837898 TotalTime 38.904970 midpoint 0.000000
+Jacobi X 6144 Y 6144 Jobs 4 Px 2 Py 2 Iter 256 ComputationTime 19.417137 TotalTime 20.820040 midpoint 0.000000
+Jacobi X 6144 Y 6144 Jobs 8 Px 4 Py 2 Iter 256 ComputationTime 9.705595 TotalTime 11.719133 midpoint 0.000000
+Jacobi X 6144 Y 6144 Jobs 16 Px 4 Py 4 Iter 256 ComputationTime 8.386584 TotalTime 10.651181 midpoint 0.000000
+Jacobi X 6144 Y 6144 Jobs 32 Px 8 Py 4 Iter 256 ComputationTime 8.326211 TotalTime 10.796871 midpoint 0.000000
+Jacobi X 6144 Y 6144 Jobs 64 Px 8 Py 8 Iter 256 ComputationTime 7.898467 TotalTime 10.782569 midpoint 0.000000
+Iteration 2
+Jacobi X 6144 Y 6144 Jobs 1 Px 1 Py 1 Iter 256 ComputationTime 75.511117 TotalTime 75.511586 midpoint 0.000000
+Jacobi X 6144 Y 6144 Jobs 2 Px 2 Py 1 Iter 256 ComputationTime 38.833265 TotalTime 38.898908 midpoint 0.000000
+Jacobi X 6144 Y 6144 Jobs 4 Px 2 Py 2 Iter 256 ComputationTime 19.418378 TotalTime 20.821634 midpoint 0.000000
+Jacobi X 6144 Y 6144 Jobs 8 Px 4 Py 2 Iter 256 ComputationTime 9.717410 TotalTime 11.737464 midpoint 0.000000
+Jacobi X 6144 Y 6144 Jobs 16 Px 4 Py 4 Iter 256 ComputationTime 8.385138 TotalTime 10.649989 midpoint 0.000000
+Jacobi X 6144 Y 6144 Jobs 32 Px 8 Py 4 Iter 256 ComputationTime 8.322922 TotalTime 10.791771 midpoint 0.000000
+Jacobi X 6144 Y 6144 Jobs 64 Px 8 Py 8 Iter 256 ComputationTime 7.946053 TotalTime 10.789828 midpoint 0.000000
+Iteration 3
+Jacobi X 6144 Y 6144 Jobs 1 Px 1 Py 1 Iter 256 ComputationTime 75.500140 TotalTime 75.500667 midpoint 0.000000
+--------------------------------------------------------------------------
+It looks like orte_init failed for some reason; your parallel process is
+likely to abort.  There are many reasons that a parallel process can
+fail during orte_init; some of which are due to configuration or
+environment problems.  This failure appears to be an internal failure;
+here's some additional information (which may only be relevant to an
+Open MPI developer):
+
+  orte_session_dir failed
+  --> Returned value Error (-1) instead of ORTE_SUCCESS
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+It looks like orte_init failed for some reason; your parallel process is
+likely to abort.  There are many reasons that a parallel process can
+fail during orte_init; some of which are due to configuration or
+environment problems.  This failure appears to be an internal failure;
+here's some additional information (which may only be relevant to an
+Open MPI developer):
+
+  orte_session_dir failed
+  --> Returned value Error (-1) instead of ORTE_SUCCESS
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+It looks like orte_init failed for some reason; your parallel process is
+likely to abort.  There are many reasons that a parallel process can
+fail during orte_init; some of which are due to configuration or
+environment problems.  This failure appears to be an internal failure;
+here's some additional information (which may only be relevant to an
+Open MPI developer):
+
+  orte_session_dir failed
+  --> Returned value Error (-1) instead of ORTE_SUCCESS
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+It looks like orte_init failed for some reason; your parallel process is
+likely to abort.  There are many reasons that a parallel process can
+fail during orte_init; some of which are due to configuration or
+environment problems.  This failure appears to be an internal failure;
+here's some additional information (which may only be relevant to an
+Open MPI developer):
+
+  orte_session_dir failed
+  --> Returned value Error (-1) instead of ORTE_SUCCESS
+--------------------------------------------------------------------

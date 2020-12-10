@@ -1,0 +1,24 @@
+Iteration 1
+Jacobi X 4096 Y 4096 Jobs 1 Px 1 Py 1 Iter 256 ComputationTime 33.540523 TotalTime 33.540994 midpoint 0.000000
+Jacobi X 4096 Y 4096 Jobs 2 Px 2 Py 1 Iter 256 ComputationTime 17.259119 TotalTime 17.313559 midpoint 0.000000
+Jacobi X 4096 Y 4096 Jobs 4 Px 2 Py 2 Iter 256 ComputationTime 8.640232 TotalTime 9.300721 midpoint 0.000000
+Jacobi X 4096 Y 4096 Jobs 8 Px 4 Py 2 Iter 256 ComputationTime 4.308574 TotalTime 5.249163 midpoint 0.000000
+Jacobi X 4096 Y 4096 Jobs 16 Px 4 Py 4 Iter 256 ComputationTime 3.683181 TotalTime 4.782924 midpoint 0.000000
+Jacobi X 4096 Y 4096 Jobs 32 Px 8 Py 4 Iter 256 ComputationTime 3.637189 TotalTime 4.807838 midpoint 0.000000
+Jacobi X 4096 Y 4096 Jobs 64 Px 8 Py 8 Iter 256 ComputationTime 3.179131 TotalTime 4.510845 midpoint 0.000000
+Iteration 2
+Jacobi X 4096 Y 4096 Jobs 1 Px 1 Py 1 Iter 256 ComputationTime 33.559222 TotalTime 33.559690 midpoint 0.000000
+Jacobi X 4096 Y 4096 Jobs 2 Px 2 Py 1 Iter 256 ComputationTime 17.269669 TotalTime 17.331023 midpoint 0.000000
+Jacobi X 4096 Y 4096 Jobs 4 Px 2 Py 2 Iter 256 ComputationTime 8.627053 TotalTime 9.282692 midpoint 0.000000
+Jacobi X 4096 Y 4096 Jobs 8 Px 4 Py 2 Iter 256 ComputationTime 4.306543 TotalTime 5.250167 midpoint 0.000000
+Jacobi X 4096 Y 4096 Jobs 16 Px 4 Py 4 Iter 256 ComputationTime 3.687322 TotalTime 4.784256 midpoint 0.000000
+Jacobi X 4096 Y 4096 Jobs 32 Px 8 Py 4 Iter 256 ComputationTime 3.663256 TotalTime 4.803933 midpoint 0.000000
+Jacobi X 4096 Y 4096 Jobs 64 Px 8 Py 8 Iter 256 ComputationTime 3.199817 TotalTime 4.518327 midpoint 0.000000
+Iteration 3
+Jacobi X 4096 Y 4096 Jobs 1 Px 1 Py 1 Iter 256 ComputationTime 33.565169 TotalTime 33.565588 midpoint 0.000000
+Jacobi X 4096 Y 4096 Jobs 2 Px 2 Py 1 Iter 256 ComputationTime 17.243726 TotalTime 17.300851 midpoint 0.000000
+Jacobi X 4096 Y 4096 Jobs 4 Px 2 Py 2 Iter 256 ComputationTime 8.627131 TotalTime 9.282593 midpoint 0.000000
+Jacobi X 4096 Y 4096 Jobs 8 Px 4 Py 2 Iter 256 ComputationTime 4.310054 TotalTime 5.250622 midpoint 0.000000
+Jacobi X 4096 Y 4096 Jobs 16 Px 4 Py 4 Iter 256 ComputationTime 3.687939 TotalTime 4.781574 midpoint 0.000000
+Jacobi X 4096 Y 4096 Jobs 32 Px 8 Py 4 Iter 256 ComputationTime 3.647622 TotalTime 4.804222 midpoint 0.000000
+Jacobi X 4096 Y 4096 Jobs 64 Px 8 Py 8 Iter 256 ComputationTime 3.196864 TotalTime 4.516148 midpoint 0.000000
