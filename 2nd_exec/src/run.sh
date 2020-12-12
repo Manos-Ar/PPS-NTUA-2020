@@ -2,7 +2,7 @@
 
 
 # jacobi_mpi seidelsor_mpi redblacksor_mpi
-for execfile in seidelsor_mpi
+for execfile in redblacksor_mpi
 do
 
     if [ -d "${1}/${execfile}" ]; then
