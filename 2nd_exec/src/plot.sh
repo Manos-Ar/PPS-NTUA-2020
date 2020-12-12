@@ -19,6 +19,11 @@ if [ ! -d "${DIR_PLOTS}/computational_speedup" ]; then
 	mkdir "${DIR_PLOTS}/computational_speedup"
 fi
 
+if [ ! -d "${DIR_PLOTS}/times" ]; then
+	mkdir "${DIR_PLOTS}/times"
+fi
+
+
 mv plot_speedup_total*.png "${DIR_PLOTS}/total_speedup"
 mv plot_speedup_comp*.png "${DIR_PLOTS}/computational_speedup"
-
+mv plot_times_*.png "${DIR_PLOTS}/times"
