@@ -23,8 +23,8 @@ outDirs=[]
 
 dir_total_times = {}
 dir_comp_times = {}
-comp_times = {}
 total_times = {}
+comp_times = {}
 comp_speedups = {}
 total_speedups = {}
 
@@ -180,11 +180,6 @@ for tuple in y_Axis.items():
 ## PLOT BAR PLOTS
 
 x_Axis = np.array(names)
-# y_Axis = comp_speedups
-# print("x_Axis: ", x_Axis)
-# print("y_Axis: ", y_Axis)
-# x_ticks = np.arange(0, len(x_Axis), 1)
-# print(x_ticks)
 
 print(total_times)
 print(comp_times)
