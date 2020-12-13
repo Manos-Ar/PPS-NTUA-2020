@@ -1,0 +1,24 @@
+Iteration 1
+RedBlackSOR X 6144 Y 6144 Jobs 1 Px 1 Py 1 Iter 256 ComputationTime 167.696383 TotalTime 167.697196 midpoint 0.000000
+RedBlackSOR X 6144 Y 6144 Jobs 2 Px 2 Py 1 Iter 256 ComputationTime 84.554393 TotalTime 85.386950 midpoint 0.000000
+RedBlackSOR X 6144 Y 6144 Jobs 4 Px 2 Py 2 Iter 256 ComputationTime 42.273386 TotalTime 43.801716 midpoint 0.000000
+RedBlackSOR X 6144 Y 6144 Jobs 8 Px 4 Py 2 Iter 256 ComputationTime 21.135759 TotalTime 23.337560 midpoint 0.000000
+RedBlackSOR X 6144 Y 6144 Jobs 16 Px 4 Py 4 Iter 256 ComputationTime 16.743505 TotalTime 19.235960 midpoint 0.000000
+RedBlackSOR X 6144 Y 6144 Jobs 32 Px 8 Py 4 Iter 256 ComputationTime 16.712558 TotalTime 19.388105 midpoint 0.000000
+RedBlackSOR X 6144 Y 6144 Jobs 64 Px 8 Py 8 Iter 256 ComputationTime 16.089828 TotalTime 19.295177 midpoint 0.000000
+Iteration 2
+RedBlackSOR X 6144 Y 6144 Jobs 1 Px 1 Py 1 Iter 256 ComputationTime 167.674998 TotalTime 167.675841 midpoint 0.000000
+RedBlackSOR X 6144 Y 6144 Jobs 2 Px 2 Py 1 Iter 256 ComputationTime 84.544055 TotalTime 84.688516 midpoint 0.000000
+RedBlackSOR X 6144 Y 6144 Jobs 4 Px 2 Py 2 Iter 256 ComputationTime 42.268606 TotalTime 43.795809 midpoint 0.000000
+RedBlackSOR X 6144 Y 6144 Jobs 8 Px 4 Py 2 Iter 256 ComputationTime 21.134500 TotalTime 23.326532 midpoint 0.000000
+RedBlackSOR X 6144 Y 6144 Jobs 16 Px 4 Py 4 Iter 256 ComputationTime 16.727666 TotalTime 19.246377 midpoint 0.000000
+RedBlackSOR X 6144 Y 6144 Jobs 32 Px 8 Py 4 Iter 256 ComputationTime 16.704934 TotalTime 19.380859 midpoint 0.000000
+RedBlackSOR X 6144 Y 6144 Jobs 64 Px 8 Py 8 Iter 256 ComputationTime 16.115395 TotalTime 19.267397 midpoint 0.000000
+Iteration 3
+RedBlackSOR X 6144 Y 6144 Jobs 1 Px 1 Py 1 Iter 256 ComputationTime 167.682187 TotalTime 167.683111 midpoint 0.000000
+RedBlackSOR X 6144 Y 6144 Jobs 2 Px 2 Py 1 Iter 256 ComputationTime 84.560499 TotalTime 84.699977 midpoint 0.000000
+RedBlackSOR X 6144 Y 6144 Jobs 4 Px 2 Py 2 Iter 256 ComputationTime 42.258189 TotalTime 43.785109 midpoint 0.000000
+RedBlackSOR X 6144 Y 6144 Jobs 8 Px 4 Py 2 Iter 256 ComputationTime 21.135739 TotalTime 23.346580 midpoint 0.000000
+RedBlackSOR X 6144 Y 6144 Jobs 16 Px 4 Py 4 Iter 256 ComputationTime 16.733870 TotalTime 19.244204 midpoint 0.000000
+RedBlackSOR X 6144 Y 6144 Jobs 32 Px 8 Py 4 Iter 256 ComputationTime 16.672834 TotalTime 19.392021 midpoint 0.000000
+RedBlackSOR X 6144 Y 6144 Jobs 64 Px 8 Py 8 Iter 256 ComputationTime 16.087121 TotalTime 19.282688 midpoint 0.000000

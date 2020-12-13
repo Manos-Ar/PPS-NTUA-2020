@@ -1,0 +1,24 @@
+Iteration 1
+RedBlackSOR X 4096 Y 4096 Jobs 1 Px 1 Py 1 Iter 256 ComputationTime 74.370104 TotalTime 74.370994 midpoint 0.000000
+RedBlackSOR X 4096 Y 4096 Jobs 2 Px 2 Py 1 Iter 256 ComputationTime 37.581496 TotalTime 37.704917 midpoint 0.000000
+RedBlackSOR X 4096 Y 4096 Jobs 4 Px 2 Py 2 Iter 256 ComputationTime 18.791604 TotalTime 19.582591 midpoint 0.000000
+RedBlackSOR X 4096 Y 4096 Jobs 8 Px 4 Py 2 Iter 256 ComputationTime 9.390043 TotalTime 10.509736 midpoint 0.000000
+RedBlackSOR X 4096 Y 4096 Jobs 16 Px 4 Py 4 Iter 256 ComputationTime 7.388024 TotalTime 8.624784 midpoint 0.000000
+RedBlackSOR X 4096 Y 4096 Jobs 32 Px 8 Py 4 Iter 256 ComputationTime 7.100190 TotalTime 8.541108 midpoint 0.000000
+RedBlackSOR X 4096 Y 4096 Jobs 64 Px 8 Py 8 Iter 256 ComputationTime 6.267249 TotalTime 7.745270 midpoint 0.000000
+Iteration 2
+RedBlackSOR X 4096 Y 4096 Jobs 1 Px 1 Py 1 Iter 256 ComputationTime 74.387200 TotalTime 74.388038 midpoint 0.000000
+RedBlackSOR X 4096 Y 4096 Jobs 2 Px 2 Py 1 Iter 256 ComputationTime 37.582406 TotalTime 37.707259 midpoint 0.000000
+RedBlackSOR X 4096 Y 4096 Jobs 4 Px 2 Py 2 Iter 256 ComputationTime 18.793429 TotalTime 19.587415 midpoint 0.000000
+RedBlackSOR X 4096 Y 4096 Jobs 8 Px 4 Py 2 Iter 256 ComputationTime 9.398233 TotalTime 10.507843 midpoint 0.000000
+RedBlackSOR X 4096 Y 4096 Jobs 16 Px 4 Py 4 Iter 256 ComputationTime 7.394632 TotalTime 8.620070 midpoint 0.000000
+RedBlackSOR X 4096 Y 4096 Jobs 32 Px 8 Py 4 Iter 256 ComputationTime 7.099018 TotalTime 8.541610 midpoint 0.000000
+RedBlackSOR X 4096 Y 4096 Jobs 64 Px 8 Py 8 Iter 256 ComputationTime 6.242674 TotalTime 7.781637 midpoint 0.000000
+Iteration 3
+RedBlackSOR X 4096 Y 4096 Jobs 1 Px 1 Py 1 Iter 256 ComputationTime 74.384213 TotalTime 74.385072 midpoint 0.000000
+RedBlackSOR X 4096 Y 4096 Jobs 2 Px 2 Py 1 Iter 256 ComputationTime 37.592186 TotalTime 37.715019 midpoint 0.000000
+RedBlackSOR X 4096 Y 4096 Jobs 4 Px 2 Py 2 Iter 256 ComputationTime 18.794210 TotalTime 19.588672 midpoint 0.000000
+RedBlackSOR X 4096 Y 4096 Jobs 8 Px 4 Py 2 Iter 256 ComputationTime 9.399785 TotalTime 10.504551 midpoint 0.000000
+RedBlackSOR X 4096 Y 4096 Jobs 16 Px 4 Py 4 Iter 256 ComputationTime 7.400118 TotalTime 8.621932 midpoint 0.000000
+RedBlackSOR X 4096 Y 4096 Jobs 32 Px 8 Py 4 Iter 256 ComputationTime 7.201097 TotalTime 8.520785 midpoint 0.000000
+RedBlackSOR X 4096 Y 4096 Jobs 64 Px 8 Py 8 Iter 256 ComputationTime 6.258609 TotalTime 7.771780 midpoint 0.000000
