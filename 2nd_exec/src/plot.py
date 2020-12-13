@@ -178,8 +178,9 @@ for tuple in y_Axis.items():
 
 
 ## PLOT BAR PLOTS
-# names = {"jacobi":"j" , "seidelsor":"gs", "redblacksor":"rb"}
-names = ["J", "GS", "RB"]
+names_dict = {"jacobi":"J" , "seidelsor":"GS", "redblacksor":"RB"}
+names= list(map(lambda x: names_dict[x], names))
+# names = ["J", "GS", "RB"]
 
 x_Axis = np.array(names)
 
