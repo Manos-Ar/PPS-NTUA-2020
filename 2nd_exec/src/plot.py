@@ -8,8 +8,8 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from statistics import mean
 
-if len(sys.argv) < 3:
-    print("Usage: plot_metrics.py <input_directory_path> <input_directory_path>")
+if len(sys.argv) < 4:
+    print("Usage: plot_metrics.py <input_directory_path> <input_directory_path>  <input_directory_path>")
     exit(-1)
 
 jobs_confs = [1, 2, 4, 8, 16, 32, 64]

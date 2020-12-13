@@ -2,17 +2,17 @@
 DIR_PLOTS="plots"
 DIR_METRICS=metrics
 # "redblacksor_mpi"
-implementations=( "jacobi_mpi" "seidelsor_mpi"  )
+implementations=( "jacobi_mpi" "seidelsor_mpi" "redblacksor_mpi" )
 
 if [ ! -d "${DIR_PLOTS}" ]; then
 	mkdir ${DIR_PLOTS}
 fi
 
 # Plot Non Converged
-./plot.py "${DIR_METRICS}/jacobi_mpi" "${DIR_METRICS}/seidelsor_mpi"
+./plot.py "${DIR_METRICS}/jacobi_mpi" "${DIR_METRICS}/seidelsor_mpi" "${DIR_METRICS}/redblacksor_mpi"
 
 # Plot Converged
-./plot_conv.py "${DIR_METRICS}/jacobi_mpi" "${DIR_METRICS}/seidelsor_mpi"
+./plot_conv.py "${DIR_METRICS}/jacobi_mpi" "${DIR_METRICS}/seidelsor_mpi" "${DIR_METRICS}/redblacksor_mpi"
 
 if [ ! -d "${DIR_PLOTS}/total_speedup" ]; then
 	mkdir "${DIR_PLOTS}/total_speedup"
