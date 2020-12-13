@@ -178,6 +178,8 @@ for tuple in y_Axis.items():
 
 
 ## PLOT BAR PLOTS
+# names = {"jacobi":"j" , "seidelsor":"gs", "redblacksor":"rb"}
+names = ["J", "GS", "RB"]
 
 x_Axis = np.array(names)
 
@@ -227,7 +229,7 @@ for tuple_total, tuple_comp in zip(total_times.items(), comp_times.items()):
 
     plt.xlabel("Methods")
     plt.ylabel("Time (s)")
-    plt.xticks([r + 0.15 for r in range(len(names)*len(jobs_confs[3:]))], names_per_job, rotation=45)
+    plt.xticks([r + 0.15 for r in range(len(names)*len(jobs_confs[3:]))], names_per_job, rotation=30, fontsize='small')
     plt.title("Times for each 'Method_Process' - Array Size: " + str(tuple_total[0]))
     plt.legend()
     plt.savefig("plot_times_" + str(tuple_total[0]) + ".png",bbox_inches="tight")
