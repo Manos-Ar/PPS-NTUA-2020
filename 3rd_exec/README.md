@@ -9,7 +9,7 @@ From the local machine, this command:
 
 From the `src` directory on local to transfer the `src` directory on remote:
 ```
-rsync -vr --delete --rsh "ssh parlab07@orion.cslab.ece.ntua.gr ssh" . parlab07@scirouter.cslab.ece.ntua.gr:/home/parallel/parlab07/a3/z1
+rsync -vr --delete --rsh "ssh parlab07@orion.cslab.ece.ntua.gr ssh" . parlab07@scirouter.cslab.ece.ntua.gr:/home/parallel/parlab07/a3/src/z1
 ```
 
 ### Scirouter -> Local (Without Proxy)

@@ -7,7 +7,7 @@ if [ ! -d "${DIR_PLOTS}" ]; then
 fi
 
 ./plot.py "${DIR_METRICS}/metric_3.txt"
-# ./plot.py "${DIR_METRICS}/metric_4.txt"
+./plot.py "${DIR_METRICS}/metric_4.txt"
 
 mv plot*.png "${DIR_PLOTS}/"
 

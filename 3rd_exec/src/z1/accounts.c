@@ -30,6 +30,7 @@ int time_to_leave;
  **/
 struct {
 	unsigned int value;
+	char padding[64 - sizeof(int)];
 } accounts[MAX_THREADS];
 
 /**

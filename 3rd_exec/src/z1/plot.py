@@ -52,4 +52,5 @@ ax.plot(x_ticks, time_2, label=implementations[1], color=colors[1], marker=marke
 
 ax.legend(frameon=True)
 # plt.title()
-plt.savefig("plot1.png",bbox_inches="tight")
+i=sys.argv[1].split("_")[1]
+plt.savefig("plot_"+i+".png",bbox_inches="tight")
