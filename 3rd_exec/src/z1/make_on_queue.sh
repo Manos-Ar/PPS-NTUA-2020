@@ -11,7 +11,7 @@
 #PBS -l nodes=1:ppn=1
 
 ##How long should the job run for?
-#PBS -l walltime=00:10:00
+#PBS -l walltime=00:01:00
 
 ## Start
 ## Run make in the src folder (modify properly)
