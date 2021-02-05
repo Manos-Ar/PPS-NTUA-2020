@@ -1,3 +1,2 @@
 src/z1/accounts
-src/z2/linked_list
-src/z2/test
+src/z2/*.out

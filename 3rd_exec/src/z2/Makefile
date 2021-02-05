@@ -4,19 +4,28 @@ CFLAGS = -Wall -Wextra -pthread -O0
 ## Remove some warnings.
 CFLAGS += -Wno-unused-parameter -Wno-unused-variable -Wno-unused-function
 
-all: linked_list test
+all: ttas tas pthread nosync array clh test
 
-## Which lock to use?
-LOCK_FILE = nosync_lock.c
+LOCK_FILE=nosync_lock.c
 
 ## Additional source files
 SRC_FILES = ../common/aff.c
 
-linked_list: main.c $(LOCK_FILE) $(SRC_FILES) 
-	$(CC) $(CFLAGS) $^ -o $@
+ttas: main.c ttas_lock.c $(SRC_FILES) 
+	$(CC) $(CFLAGS) $^ -o $@.out
+tas: main.c tas_lock.c $(SRC_FILES) 
+	$(CC) $(CFLAGS) $^ -o $@.out
+pthread: main.c pthread_lock.c $(SRC_FILES) 
+	$(CC) $(CFLAGS) $^ -o $@.out
+nosync: main.c nosync_lock.c $(SRC_FILES) 
+	$(CC) $(CFLAGS) $^ -o $@.out
+array: main.c array_lock.c $(SRC_FILES) 
+	$(CC) $(CFLAGS) $^ -o $@.out
+clh: main.c clh_lock.c $(SRC_FILES) 
+	$(CC) $(CFLAGS) $^ -o $@.out
 
 test: test.c $(LOCK_FILE) $(SRC_FILES)
-	$(CC) $(CFLAGS) $^ -o $@
+	$(CC) $(CFLAGS) $^ -o $@.out
 
 clean:
-	rm -f linked_list test
+	rm -f *.out
