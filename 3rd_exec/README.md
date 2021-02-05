@@ -31,7 +31,7 @@ rsync -vr --rsh "ssh parlab07@orion.cslab.ece.ntua.gr ssh" parlab07@scirouter.cs
 ```
 ### Compile All
 ```
-qsub -q parlab make_on_queue.sh
+qsub -q serial -l nodes=sandman:ppn=1 make_on_queue.sh
 ```
 
 ### Run All

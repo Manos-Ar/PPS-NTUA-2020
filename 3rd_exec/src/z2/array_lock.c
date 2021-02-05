@@ -1,7 +1,6 @@
 #include "lock.h"
 #include "../common/alloc.h"
 #include <stdbool.h>
-#include <threads.h>
 
 struct lock_struct {
 	bool *flag;
@@ -9,7 +8,7 @@ struct lock_struct {
 	int size;
 };
 
-thread_local int thread_slot;
+__thread int thread_slot;
 
 lock_t *lock_init(int nthreads)
 {
