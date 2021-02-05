@@ -28,8 +28,8 @@ void lock_acquire(lock_t *lock)
 {
 	lock_t *l = lock;
 	while(1){
-		while(l->state){};
-	 	if(!__sync_lock_test_and_set(&l->state, LOCKED))
+		while(l->state==LOCKED){};
+	 	if(__sync_lock_test_and_set(&l->state, LOCKED)==UNLOCKED)
 	 		return;
 	}	 
 }

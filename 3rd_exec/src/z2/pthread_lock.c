@@ -1,6 +1,8 @@
 #include "lock.h"
 #include "../common/alloc.h"
 #include <pthread.h>
+#include <errno.h>
+
 
 struct lock_struct {
 	pthread_spinlock_t *spin_lock;
@@ -9,7 +11,7 @@ struct lock_struct {
 lock_t *lock_init(int nthreads)
 {
 	lock_t *lock;
-	int pshared=0;
+	// int pshared=0;
 	XMALLOC(lock, 1);
 
 	while(pthread_spin_init(lock->spin_lock,0)){}; //success  == 0

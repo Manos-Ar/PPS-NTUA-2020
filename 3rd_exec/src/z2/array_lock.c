@@ -38,5 +38,5 @@ void lock_acquire(lock_t *lock)
 void lock_release(lock_t *lock)
 {
 	lock->flag[thread_slot]=false;
-	lock->flag[(thread_slot+1)%lock->size]=false;
+	lock->flag[(thread_slot+1)%lock->size]=true;
 }
