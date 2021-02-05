@@ -29,6 +29,7 @@ locks=( "ttas" "tas" "pthread" "nosync" "array" "clh" )
 for lock in "${locks[@]}";
 do
     for size in "${sizes[@]}";
+    do
         # 1 thread
         MT_CONF=0 ./${lock}.out ${size}
         # 2 threads
