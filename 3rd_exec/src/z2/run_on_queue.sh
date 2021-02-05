@@ -26,9 +26,9 @@ cd /home/parallel/parlab07/a3/src/z2
 sizes=( 16 1024 8192 )
 locks=( "ttas" "tas" "pthread" "nosync" "array" "clh" )
 
-for lock in "${locks[@]}";
+for size in "${sizes[@]}";
 do
-    for size in "${sizes[@]}";
+    for lock in "${locks[@]}";
     do
         # 1 thread
         MT_CONF=0 ./${lock}.out ${size}
