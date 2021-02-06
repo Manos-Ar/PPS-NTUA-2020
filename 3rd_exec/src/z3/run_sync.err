@@ -1,0 +1,13 @@
+/var/spool/torque/mom_priv/jobs/451675.localhost.SC: line 34: 45519 Segmentation fault      MT_CONF=0,1,2,3 ./${sync}.out ${size} ${operation}
+/var/spool/torque/mom_priv/jobs/451675.localhost.SC: line 34: 45524 Segmentation fault      MT_CONF=0,1,2,3,4,5,6,7 ./${sync}.out ${size} ${operation}
+/var/spool/torque/mom_priv/jobs/451675.localhost.SC: line 34: 45533 Segmentation fault      MT_CONF=0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15 ./${sync}.out ${size} ${operation}
+/var/spool/torque/mom_priv/jobs/451675.localhost.SC: line 34: 45550 Segmentation fault      MT_CONF=0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31 ./${sync}.out ${size} ${operation}
+/var/spool/torque/mom_priv/jobs/451675.localhost.SC: line 34: 45583 Segmentation fault      MT_CONF=0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63 ./${sync}.out ${size} ${operation}
+/var/spool/torque/mom_priv/jobs/451675.localhost.SC: line 34: 46058 Segmentation fault      MT_CONF=0,1,2,3 ./${sync}.out ${size} ${operation}
+/var/spool/torque/mom_priv/jobs/451675.localhost.SC: line 34: 46063 Segmentation fault      MT_CONF=0,1,2,3,4,5,6,7 ./${sync}.out ${size} ${operation}
+/var/spool/torque/mom_priv/jobs/451675.localhost.SC: line 34: 46072 Segmentation fault      MT_CONF=0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15 ./${sync}.out ${size} ${operation}
+/var/spool/torque/mom_priv/jobs/451675.localhost.SC: line 34: 46089 Segmentation fault      MT_CONF=0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31 ./${sync}.out ${size} ${operation}
+/var/spool/torque/mom_priv/jobs/451675.localhost.SC: line 34: 46122 Segmentation fault      MT_CONF=0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63 ./${sync}.out ${size} ${operation}
+/var/spool/torque/mom_priv/jobs/451675.localhost.SC: line 34: 46346 Segmentation fault      MT_CONF=0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15 ./${sync}.out ${size} ${operation}
+/var/spool/torque/mom_priv/jobs/451675.localhost.SC: line 34: 46363 Segmentation fault      MT_CONF=0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31 ./${sync}.out ${size} ${operation}
+/var/spool/torque/mom_priv/jobs/451675.localhost.SC: line 34: 46396 Segmentation fault      MT_CONF=0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63 ./${sync}.out ${size} ${operation}
