@@ -10,7 +10,8 @@
 typedef struct ll_node {
 	int key;
 	struct ll_node *next;
-	lock_t *lock;	
+	// lock_t *lock;	
+	pthread_spinlock_t lock;
 } ll_node_t;
 
 struct linked_list {
@@ -26,7 +27,8 @@ static ll_node_t *ll_node_new(int key)
 	ll_node_t *ret;
 
 	XMALLOC(ret, 1);
-	ret->lock=lock_init(0);
+	// ret->lock=lock_init(0);
+	pthread_spin_init(&ret->lock,PTHREAD_PROCESS_PRIVATE);
 	ret->key = key;
 	ret->next = NULL;
 	/* Other initializations here? */
@@ -39,7 +41,8 @@ static ll_node_t *ll_node_new(int key)
  **/
 static void ll_node_free(ll_node_t *ll_node)
 {
-	lock_free(ll_node->lock);
+	// lock_free(ll_node->lock);
+	pthread_spin_destroy(&ll_node->lock);
 	XFREE(ll_node);
 }
 
@@ -85,7 +88,9 @@ int ll_validate(ll_t *ll, ll_node_t *prev, ll_node_t *curr){
 
 int ll_contains(ll_t *ll, int key)
 {
+	// printf("contains in\n");
 	ll_node_t *prev, *curr;
+	int flag=-1;
 	while(1)
 	{
 		prev=ll->head;
@@ -95,33 +100,28 @@ int ll_contains(ll_t *ll, int key)
 			prev=curr;
 			curr=curr->next;
 		}
-
-		lock_acquire(prev->lock);
-		lock_acquire(curr->lock);
+		pthread_spin_lock(&prev->lock);
+		pthread_spin_lock(&curr->lock);
 		if(ll_validate(ll,prev,curr)){
-			if(curr->key==key){
-				lock_release(prev->lock);
-				lock_release(curr->lock);
-				return 1;
-			}
-			else{
-				lock_release(prev->lock);
-				lock_release(curr->lock);
-				return 0;
-			}
+			if(curr->key==key)
+				flag=1;
+			else
+				flag=0;
 		}
-		else{
-			lock_release(prev->lock);
-			lock_release(curr->lock);
-			continue;
-		}
+		pthread_spin_unlock(&prev->lock);
+		pthread_spin_unlock(&curr->lock);
+		if (flag==0 || flag==1)
+			break;
 	}
-	return 0;
+	// printf("contains out\n");
+	return flag;
 }
 
 int ll_add(ll_t *ll, int key)
 {
+	// printf("add in\n");
 	ll_node_t *prev, *curr, *new;
+	int flag=-1;
 	while(1)
 	{
 		prev=ll->head;
@@ -131,38 +131,34 @@ int ll_add(ll_t *ll, int key)
 			prev=curr;
 			curr=curr->next;
 		}
-
-		lock_acquire(prev->lock);
-		lock_acquire(curr->lock);
+		pthread_spin_lock(&prev->lock);
+		pthread_spin_lock(&curr->lock);
 		if(ll_validate(ll,prev,curr)){
-			if(curr->key==key){
-				lock_release(prev->lock);
-				lock_release(curr->lock);
-				return 0;
-			}
+			if(curr->key==key)
+				flag=0;
 			else{
 				new=ll_node_new(key);
-				prev->next=new;
 				new->next=curr;
-				lock_release(prev->lock);
-				lock_release(curr->lock);
-				return 1;
+				prev->next=new;
+				flag=1;
 			}
 		}
-		else{
-			lock_release(prev->lock);
-			lock_release(curr->lock);
-			continue;
-		}
+		pthread_spin_unlock(&prev->lock);
+		pthread_spin_unlock(&curr->lock);
+		if (flag==0 || flag==1)
+			break;
 	}
-	return 0;
+	// printf("add out\n");
+	return flag;
 }
 
 
 
 int ll_remove(ll_t *ll, int key)
 {
+	// printf("remove in\n");
 	ll_node_t *prev, *curr;
+	int flag=-1;
 	while(1)
 	{
 		prev=ll->head;
@@ -173,28 +169,26 @@ int ll_remove(ll_t *ll, int key)
 			curr=curr->next;
 		}
 
-		lock_acquire(prev->lock);
-		lock_acquire(curr->lock);
+		pthread_spin_lock(&prev->lock);
+		pthread_spin_lock(&curr->lock);
 		if(ll_validate(ll,prev,curr)){
 			if(curr->key==key){
 				prev->next=curr->next;
-				lock_release(prev->lock);
-				lock_release(curr->lock);
-				return 1;
+				flag=1;
 			}
 			else{
-				lock_release(prev->lock);
-				lock_release(curr->lock);
-				return 0;
+				flag=0;
 			}
 		}
-		else{
-			lock_release(prev->lock);
-			lock_release(curr->lock);
-			continue;
-		}
+		// else
+		// 	continue;
+		pthread_spin_unlock(&prev->lock);
+		pthread_spin_unlock(&curr->lock);
+		if(flag==1 || flag==0)
+			break;
 	}
-	return 0;
+	// printf("remove out\n");
+	return flag;
 }
 
 /**

@@ -146,6 +146,7 @@ int ll_remove(ll_t *ll, int key)
 		prev->next=curr->next;
 		lock_release(prev->lock);
 		lock_release(curr->lock);
+		ll_node_free(curr);
 		return 1;
 	}
 	lock_release(prev->lock);

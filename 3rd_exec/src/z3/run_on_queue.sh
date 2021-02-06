@@ -25,7 +25,7 @@ cd /home/parallel/parlab07/a3/src/z3
 
 sizes=( 1024 8192 )
 operations=( "80 10 10" "20 40 40" )
-syncs=( "serial" "fine_grain" "optimistic" )
+syncs=( "fine_grain" "optimistic" )
 
 for operation in "${operations[@]}";
 do

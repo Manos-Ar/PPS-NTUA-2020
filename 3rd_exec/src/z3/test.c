@@ -69,7 +69,7 @@ int main(int argc, char **argv)
 		ll_add(ll, i);
 
 	//> Print Initialized linked list
-	ll_print(ll);
+	// ll_print(ll);
 
 	//> Spawn threads.
 	for (i=0; i < nthreads; i++) {
@@ -101,7 +101,7 @@ int main(int argc, char **argv)
 		total_ops += threads_data[i].ops;
 
 	//> Print Finalized linked list
-	ll_print(ll);
+	// ll_print(ll);
 
 	//> Print results.
 	double secs = timer_report_sec(wall_timer);
@@ -142,12 +142,21 @@ void *thread_fn(void *targ)
 		lrand48_r(&drand_buffer, &drand_res);
 		int op = drand_res % 100;
 
-		if (op < contains_pct)
+		if (op < contains_pct){
+			// printf("tid:%d key:%d contains in\n",mydata->tid,key);
 			ll_contains(ll, key);
-		else if (op < contains_pct + add_pct)
+			// printf("tid:%d key:%d contains out\n",mydata->tid,key);
+			}		
+		else if (op < contains_pct + add_pct){
+			// printf("tid:%d key:%d add in\n",mydata->tid,key);
 			ll_add(ll, key);
-		else
+			// printf("tid:%d key:%d add out\n",mydata->tid,key);
+			}
+		else{
+			// printf("tid:%d key:%d remove out\n",mydata->tid,key);
 			ll_remove(ll, key);
+			// printf("tid:%d key:%d remove out\n",mydata->tid,key);
+			}
 
 		mydata->ops++;
 		for (i=0; i < 200; i++)
