@@ -80,7 +80,7 @@ int ll_contains(ll_t *ll, int key)
 	lock_acquire(prev->lock);
 	lock_acquire(curr->lock);
 
-	while(curr->key <= key){
+	while(curr->key < key){
 		lock_release(prev->lock);
 		prev=curr;
 		curr=curr->next;
@@ -135,7 +135,7 @@ int ll_remove(ll_t *ll, int key)
 	lock_acquire(prev->lock);
 	lock_acquire(curr->lock);
 
-	while(curr->key <= key){
+	while(curr->key < key){
 		lock_release(prev->lock);
 		prev=curr;
 		curr=curr->next;
