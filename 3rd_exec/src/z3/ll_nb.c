@@ -98,10 +98,11 @@ bool compareAndset(ll_node_t *node, ll_node_t *expectedRef, ll_node_t *updateRef
 	return ret;
 }
 
-window_t find(ll_t *ll, int key){
+window_t *find(ll_t *ll, int key){
 	ll_node_t *prev=NULL, *curr=NULL, *succ=NULL;
-	window_t ret;
+	window_t *ret;
 	bool mark=false, snip;
+	XMALLOC(ret,1);
 retry:
 	while(true){
 		prev = ll->head;
@@ -115,8 +116,8 @@ retry:
 				succ = get(curr->next, &mark);
 			}
 			if(curr->key >= key){
-				ret.prev = prev;
-				ret.curr = curr;
+				ret->prev = prev;
+				ret->curr = curr;
 				return ret;
 			}
 			prev = curr;
@@ -140,23 +141,19 @@ int ll_add(ll_t *ll, int key)
 {
 	bool slice;
 	ll_node_t *prev=NULL, *curr=NULL, *node=NULL;
-	window_t ret;
-	// XMALLOC(ret,1);
+	window_t *ret;
 	while(true){
 		ret = find(ll,key);
-		prev = ret.prev;
-		curr = ret.curr;
-
+		prev = ret->prev;
+		curr = ret->curr;
+		XFREE(ret);
 		if (curr->key == key){
-				// XFREE(ret);
 				return false;
 			}
 		else{
 			node = ll_node_new(key);
-			// ??? AtomicMarkableRef(curr, false)
 			node->next = curr;
 			if(compareAndset(prev->next, curr, node, false, false)){
-				// XFREE(ret);
 				return true;
 			}
 		}
@@ -167,14 +164,13 @@ int ll_add(ll_t *ll, int key)
 int ll_remove(ll_t *ll, int key)
 {
 	ll_node_t *prev=NULL, *curr=NULL, *succ=NULL;
-	window_t ret;
 	bool snip;
+	window_t *ret;
 	while(true){
-		// XMALLOC(ret,1);
 		ret = find(ll,key);
-		prev = ret.prev;
-		curr = ret.curr;
-		// XFREE(ret);
+		prev = ret->prev;
+		curr = ret->curr;
+		XFREE(ret);
 		if (curr->key != key)
 			return false;
 		else{
