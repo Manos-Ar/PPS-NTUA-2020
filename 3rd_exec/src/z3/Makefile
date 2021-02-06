@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -pthread -g
+CFLAGS = -Wall -Wextra -pthread 
 
 ## Remove some warnings.
 CFLAGS += -Wno-unused-parameter -Wno-unused-variable -Wno-unused-function

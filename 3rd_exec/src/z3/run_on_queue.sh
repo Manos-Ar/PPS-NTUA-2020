@@ -11,7 +11,7 @@
 #PBS -l nodes=8:ppn=8
 
 ##How long should the job run for?
-#PBS -l walltime=01:00:00
+#PBS -l walltime=10:00:00
 
 
 ## Start
