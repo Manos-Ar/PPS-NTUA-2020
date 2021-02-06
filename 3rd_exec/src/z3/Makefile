@@ -4,7 +4,7 @@ CFLAGS = -Wall -Wextra -pthread -g
 ## Remove some warnings.
 CFLAGS += -Wno-unused-parameter -Wno-unused-variable -Wno-unused-function
 
-all: serial fine_grain optimistic test
+all: serial fine_grain optimistic lazy test
 
 ## Which linked list implementation to use?
 LL_FILE = ll_serial.c
@@ -20,6 +20,9 @@ fine_grain: main.c ll_fgl.c ${SRC_FILES}
 	$(CC) $(CFLAGS) $^ -o $@.out
 
 optimistic: main.c ll_opt.c ${SRC_FILES}
+	$(CC) $(CFLAGS) $^ -o $@.out
+
+lazy: main.c ll_lazy.c ${SRC_FILES}
 	$(CC) $(CFLAGS) $^ -o $@.out
 
 test: test.c $(LL_FILE) $(SRC_FILES)

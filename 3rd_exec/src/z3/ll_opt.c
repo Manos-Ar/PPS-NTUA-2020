@@ -41,7 +41,6 @@ static ll_node_t *ll_node_new(int key)
  **/
 static void ll_node_free(ll_node_t *ll_node)
 {
-	// lock_free(ll_node->lock);
 	pthread_spin_destroy(&ll_node->lock);
 	XFREE(ll_node);
 }

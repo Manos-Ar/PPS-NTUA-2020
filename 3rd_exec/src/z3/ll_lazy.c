@@ -5,11 +5,13 @@
 
 #include "../common/alloc.h"
 #include "ll.h"
+#include <stdbool.h>
 
 typedef struct ll_node {
 	int key;
 	struct ll_node *next;
-	/* other fields here? */
+	pthread_spinlock_t lock;
+	bool mark;
 } ll_node_t;
 
 struct linked_list {
@@ -25,10 +27,10 @@ static ll_node_t *ll_node_new(int key)
 	ll_node_t *ret;
 
 	XMALLOC(ret, 1);
+	pthread_spin_init(&ret->lock,PTHREAD_PROCESS_PRIVATE);
 	ret->key = key;
 	ret->next = NULL;
-	/* Other initializations here? */
-
+	ret->mark = false;
 	return ret;
 }
 
@@ -37,6 +39,7 @@ static ll_node_t *ll_node_new(int key)
  **/
 static void ll_node_free(ll_node_t *ll_node)
 {
+	pthread_spin_destroy(&ll_node->lock);
 	XFREE(ll_node);
 }
 
@@ -69,19 +72,87 @@ void ll_free(ll_t *ll)
 	XFREE(ll);
 }
 
+int ll_validate(ll_node_t *prev, ll_node_t *curr){
+	return (!prev->mark && !curr->mark && prev->next==curr);
+}
+
 int ll_contains(ll_t *ll, int key)
 {
-	return 0;
+	ll_node_t *curr;
+	curr=ll->head;
+	while(curr->key < key){
+		curr=curr->next;
+	}
+	return (!curr->mark && curr->key==key);
 }
 
 int ll_add(ll_t *ll, int key)
 {
-	return 0;
+	// printf("add in\n");
+	ll_node_t *prev, *curr, *new;
+	int flag=-1;
+	while(1)
+	{
+		prev=ll->head;
+		curr=prev->next;
+
+		while(curr->key < key){
+			prev=curr;
+			curr=curr->next;
+		}
+		pthread_spin_lock(&prev->lock);
+		pthread_spin_lock(&curr->lock);
+		if(ll_validate(prev,curr)){
+			if(curr->key==key)
+				flag=0;
+			else{
+				new=ll_node_new(key);
+				new->next=curr;
+				prev->next=new;
+				flag=1;
+			}
+		}
+		pthread_spin_unlock(&prev->lock);
+		pthread_spin_unlock(&curr->lock);
+		if (flag==0 || flag==1)
+			break;
+	}
+	// printf("add out\n");
+	return flag;
 }
 
 int ll_remove(ll_t *ll, int key)
 {
-	return 0;
+	ll_node_t *prev, *curr;
+	int flag=-1;
+	while(1)
+	{
+		prev=ll->head;
+		curr=prev->next;
+
+		while(curr->key < key){
+			prev=curr;
+			curr=curr->next;
+		}
+
+		pthread_spin_lock(&prev->lock);
+		pthread_spin_lock(&curr->lock);
+		if(ll_validate(prev,curr)){
+			if(curr->key==key){
+				curr->mark=true;
+				prev->next=curr->next;
+				flag=1;
+			}
+			else{
+				flag=0;
+			}
+		}
+		pthread_spin_unlock(&prev->lock);
+		pthread_spin_unlock(&curr->lock);
+		if(flag==1 || flag==0)
+			break;
+	}
+	return flag;
 }
 
 /**
