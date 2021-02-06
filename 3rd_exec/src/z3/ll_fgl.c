@@ -10,7 +10,7 @@
 typedef struct ll_node {
 	int key;
 	struct ll_node *next;
-	lock_t *lock;	
+	lock_t *lock;
 } ll_node_t;
 
 struct linked_list {
@@ -124,7 +124,7 @@ int ll_add(ll_t *ll, int key)
 	}
 	lock_release(prev->lock);
 	lock_release(curr->lock);
-	return 1;	
+	return 1;
 }
 
 int ll_remove(ll_t *ll, int key)
@@ -146,7 +146,7 @@ int ll_remove(ll_t *ll, int key)
 		prev->next=curr->next;
 		lock_release(prev->lock);
 		lock_release(curr->lock);
-		ll_node_free(curr);
+		// ll_node_free(curr);
 		return 1;
 	}
 	lock_release(prev->lock);
