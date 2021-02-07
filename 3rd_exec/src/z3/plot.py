@@ -33,13 +33,13 @@ skip=skip_sizes[size]*skip_s+skip_o*skip_operations[operation]
 with open(sys.argv[1], 'r') as fp:
     # for op,i in skip_operations.items():
     #     for siz,j in skip_sizes.items():
-    #         # print(skip_sizes[siz]*skip_s+skip_o*skip_operations[op]) 
-    for i in range(skip): 
+    #         # print(skip_sizes[siz]*skip_s+skip_o*skip_operations[op])
+    for i in range(skip):
         line = fp.readline()
     line = fp.readline()
     # exit()
     i=0
-    while line:  
+    while line:
         if line.startswith("Nthreads: 1 "):
             if i==len(implementations):
                 break
@@ -49,7 +49,7 @@ with open(sys.argv[1], 'r') as fp:
             throughput = float(line.split(":")[4].split("\n")[0])
             locks[implementation].append(throughput)
         line = fp.readline()
-        
+
 print("locks:",locks)
 
 
@@ -72,5 +72,5 @@ for implementation,throughput in locks.items():
     ax.plot(x_ticks, throughput, label=implementation, color=colors[i%len(colors)], marker=markers[i%len(markers)])
     i+=1
 ax.legend(frameon=True)
-plt.title("Lock Implementations-Size "+str(size))
+plt.title("Lock Implementations - Ops "+operation+" - Size "+str(size))
 plt.savefig("plot_"+operation+"_"+size+".png",bbox_inches="tight")
