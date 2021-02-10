@@ -15,8 +15,8 @@
 ## Copyright (C) 2020, Computing Systems Laboratory (CSLab)
 ##
 
-#PBS -o dmm_gpu.out
-#PBS -e dmm_gpu.err
+#PBS -o run_dmm_gpu.out
+#PBS -e run_dmm_gpu.err
 #PBS -l walltime=06:00:00
 #PBS -l nodes=dungani:ppn=24:cuda
 
@@ -29,7 +29,7 @@ block_sizes="$(seq 16 16 512)"
 gpu_prog="./dmm_main"
 
 ## Change this to the directory of your executable!
-cd where/your/executable/lies
+cd /home/parallel/parlab07/a4/dmm-skeleton/cuda
 echo "Benchmark started on $(date) in $(hostname)"
 for i in $gpu_kernels; do
     for m in $problem_sizes; do
