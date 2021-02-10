@@ -17,4 +17,5 @@
 ## Run make in the src folder (modify properly)
 
 cd /home/parallel/parlab07/a4/dmm-skeleton
+make clean
 make DEBUG=0

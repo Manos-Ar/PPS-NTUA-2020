@@ -49,11 +49,18 @@ qsub -q serial -l nodes=dungani:ppn=1 run_dmm.sh
 - All changes will be made in code segments with **FILL ME** tags
 
 ### Changes `dmm_main.cu`
-- Optionally increase appropriately the matrix size here if that helps you with your kernel code, e.g., to avoid divergent warps.
-- Set up the block and grid depending on the kernel (`THREAD_BLOCK_X, THREAD_BLOCK_Y, TILE_X, TILE_Y`)
-  - Set block size from script
-- Set up the thread block and grid dimensions
-- Execute and time the kernel (for CUBLAS)
+- [ ] Optionally increase appropriately the matrix size here if that helps you with your kernel code, e.g., to avoid divergent warps.
+- [ ] Set up the block and grid depending on the kernel (`THREAD_BLOCK_X, THREAD_BLOCK_Y, TILE_X, TILE_Y`)
+  - [x] Set `gpu_block`
+  - [x] Set `gpu_grid`
+    ```c
+    dim3 gpu_block(THREAD_BLOCK_Y, THREAD_BLOCK_X);
+    dim3 gpu_grid((N + THREAD_BLOCK_Y - 1) / THREAD_BLOCK_Y,
+                (M + THREAD_BLOCK_X - 1) / THREAD_BLOCK_X);
+    ```
+    C output matrix is MxN, so we need at least ⌈N/THREAD_BLOCK_Y⌉ number of blocks in X dimension
+    and at least ⌈M/THREAD_BLOCK_X⌉ number of blocks in Y dimension.
+- [ ] CUBLAS arguments
 
 ### Changes `dmm_gpu.cu`
 - `dmm_gpu_naive()`
@@ -67,6 +74,7 @@ Two runnning scenarios:
 - For (naive, coalesced, shmem)
 - For all block dimensions between `16-512`:
   - `16 32 48 64 80 96 112 128 144 160 176 192 208 224 240 256 272 288 304 320 336 352 368 384 400 416 432 448 464 480 496 512`
+  - Find block sizes to test
 - For `M=N=K=2048`
 #### 2nd Scenario
 - For (naive, coalesced, shmem, cuBLAS)

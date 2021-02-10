@@ -126,9 +126,11 @@ int main(int argc, char **argv) {
    *          Use THREAD_BLOCK_X, THREAD_BLOCK_Y, TILE_X, TILE_Y
    *          which are defined at compile time.
    */
-
-  dim3 gpu_block(1, 1);  // FILLME: set up the thread block dimensions
-  dim3 gpu_grid(1, 1);   // FILLME: set up the grid dimensions
+  // dim3 gpu_block(1, 1);  // FILLME: set up the thread block dimensions
+  // dim3 gpu_grid(1, 1);   // FILLME: set up the grid dimensions
+  dim3 gpu_block(THREAD_BLOCK_Y, THREAD_BLOCK_X);
+  dim3 gpu_grid((N + THREAD_BLOCK_Y - 1) / THREAD_BLOCK_Y,
+                (M + THREAD_BLOCK_X - 1) / THREAD_BLOCK_X);
 
   printf(">>>> Begin of record <<<<\n");
   printf("Block dimensions: %dx%d\n", gpu_block.x, gpu_block.y);
