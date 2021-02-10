@@ -23,7 +23,8 @@
 export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
 export CUDA_VISIBLE_DEVICES=2
 
-gpu_kernels="0 1 2"
+gpu_kernels="0 1 2"	# Our kernels
+gpu_kernels_all="0 1 2 3"	# All kernels
 problem_sizes="256 512 1024 2048"
 block_sizes="$(seq 16 16 512)"
 gpu_prog="./dmm_main"
@@ -31,15 +32,37 @@ gpu_prog="./dmm_main"
 ## Change this to the directory of your executable!
 cd /home/parallel/parlab07/a4/dmm-skeleton/cuda
 echo "Benchmark started on $(date) in $(hostname)"
+
+## Scenario: All possible configurations
+# for i in $gpu_kernels; do
+# 	for m in $problem_sizes; do
+# 		for n in $problem_sizes; do
+# 			for k in $problem_sizes; do
+# 				for b in $block_sizes; do
+# 					GPU_KERNEL=$i GPU_BLOCK_SIZE=$b $gpu_prog $m $n $k
+# 				done
+# 			done
+# 		done
+# 	done
+# done
+
+## Scenario 1: For (naive, coalesced, shmem) kernels, for block sizes, M = N = K = 2048
 for i in $gpu_kernels; do
-    for m in $problem_sizes; do
-	for n in $problem_sizes; do
-	    for k in $problem_sizes; do
-		for b in $block_sizes; do
-		    GPU_KERNEL=$i GPU_BLOCK_SIZE=$b $gpu_prog $m $n $k
-		done
-	    done
+	for b in $block_sizes; do
+		GPU_KERNEL=$i GPU_BLOCK_SIZE=$b $gpu_prog 2048 2048 2048
 	done
-    done
 done
+
+## Scenario 2: For all kernels, for M, N, K ∈ [256, 512, 1024, 2048], for best blocks dims
+# for i in $gpu_kernels_all; do
+# 	for m in $problem_sizes; do
+# 		for n in $problem_sizes; do
+# 			for k in $problem_sizes; do
+# 				GPU_KERNEL=$i GPU_BLOCK_SIZE="??" $gpu_prog $m $n $k
+# 			done
+# 		done
+# 	done
+# done
+
+
 echo "Benchmark ended on $(date) in $(hostname)"

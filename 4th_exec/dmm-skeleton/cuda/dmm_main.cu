@@ -5,14 +5,15 @@
  *  Copyright (C) 2020, Athena Elafrou/Petros Anastasiadis
  */
 
+#include <cuda.h>
+#include <stdio.h>
+#include <stdlib.h>
+
 #include "alloc.h"
 #include "dmm.h"
 #include "error.h"
 #include "gpu_util.h"
 #include "mat_util.h"
-#include <cuda.h>
-#include <stdio.h>
-#include <stdlib.h>
 
 #ifndef VALUES_MAX
 #define VALUES_MAX MAKE_VALUE_CONSTANT(1.)
@@ -46,8 +47,7 @@ static void report_results(float time, const size_t M, const size_t N,
 }
 
 static void print_usage() {
-  printf("Usage: [GPU_KERNEL=<kernel_no>] %s <M> <N> <K>\n",
-         program_name);
+  printf("Usage: [GPU_KERNEL=<kernel_no>] %s <M> <N> <K>\n", program_name);
   printf("KERNEL defaults to 0\n");
   printf("Available kernels [id:name]:\n");
   size_t i;
@@ -65,14 +65,11 @@ int main(int argc, char **argv) {
   }
 
   size_t M = atoi(argv[1]);
-  if (!M)
-    error(0, "invalid argument: %s", argv[1]);
+  if (!M) error(0, "invalid argument: %s", argv[1]);
   size_t N = atoi(argv[2]);
-  if (!N)
-    error(0, "invalid argument: %s", argv[2]);
+  if (!N) error(0, "invalid argument: %s", argv[2]);
   size_t K = atoi(argv[3]);
-  if (!K)
-    error(0, "invalid argument: %s", argv[3]);
+  if (!K) error(0, "invalid argument: %s", argv[3]);
 
   /* Read block size and kernel to launch from the environment */
   const char *env_gpu_kernel = getenv("GPU_KERNEL");
@@ -101,21 +98,17 @@ int main(int argc, char **argv) {
    * size.
    */
   value_t **A = (value_t **)calloc_2d(M, K, sizeof(**A));
-  if (!A)
-    error(1, "alloc_2d failed");
+  if (!A) error(1, "alloc_2d failed");
 
   value_t **B = (value_t **)calloc_2d(K, N, sizeof(**B));
-  if (!B)
-    error(1, "alloc_2d failed");
+  if (!B) error(1, "alloc_2d failed");
 
   value_t **C = (value_t **)calloc_2d(M, N, sizeof(**C));
-  if (!C)
-    error(1, "alloc_2d failed");
+  if (!C) error(1, "alloc_2d failed");
 
 #ifdef _CHECK_
   value_t **C_serial = (value_t **)calloc_2d(M, N, sizeof(**C_serial));
-  if (!C_serial)
-    error(1, "alloc_2d failed");
+  if (!C_serial) error(1, "alloc_2d failed");
 #endif
 
   /* Initialize */
@@ -129,12 +122,13 @@ int main(int argc, char **argv) {
   cudaEventCreate(&stop);
 
   /*
-   *  FILLME: Set up the block and grid depending on the kernel. 
+   *  FILLME: Set up the block and grid depending on the kernel.
    *          Use THREAD_BLOCK_X, THREAD_BLOCK_Y, TILE_X, TILE_Y
    *          which are defined at compile time.
    */
-  dim3 gpu_block(1, 1); // FILLME: set up the thread block dimensions
-  dim3 gpu_grid(1, 1);  // FILLME: set up the grid dimensions
+
+  dim3 gpu_block(1, 1);  // FILLME: set up the thread block dimensions
+  dim3 gpu_grid(1, 1);   // FILLME: set up the grid dimensions
 
   printf(">>>> Begin of record <<<<\n");
   printf("Block dimensions: %dx%d\n", gpu_block.x, gpu_block.y);
@@ -142,16 +136,13 @@ int main(int argc, char **argv) {
 
   /* GPU allocations */
   value_t *gpu_A = (value_t *)gpu_alloc(M * K * sizeof(*gpu_A));
-  if (!gpu_A)
-    error(0, "gpu_alloc failed: %s", gpu_get_last_errmsg());
+  if (!gpu_A) error(0, "gpu_alloc failed: %s", gpu_get_last_errmsg());
 
   value_t *gpu_B = (value_t *)gpu_alloc(K * N * sizeof(*gpu_B));
-  if (!gpu_B)
-    error(0, "gpu_alloc failed: %s", gpu_get_last_errmsg());
+  if (!gpu_B) error(0, "gpu_alloc failed: %s", gpu_get_last_errmsg());
 
   value_t *gpu_C = (value_t *)gpu_alloc(M * N * sizeof(*gpu_C));
-  if (!gpu_C)
-    error(0, "gpu_alloc failed: %s", gpu_get_last_errmsg());
+  if (!gpu_C) error(0, "gpu_alloc failed: %s", gpu_get_last_errmsg());
 
   /* Copy data to GPU */
   if (copy_to_gpu(A[0], gpu_A, M * K * sizeof(*gpu_A)) < 0)
@@ -165,8 +156,7 @@ int main(int argc, char **argv) {
   if (copy_to_gpu(C[0], gpu_C, M * N * sizeof(*gpu_C)) < 0)
     error(0, "copy_to_gpu failed: %s", gpu_get_last_errmsg());
 
-  if (kernel >= GPU_KERNEL_END)
-    error(0, "the requested kernel does not exist");
+  if (kernel >= GPU_KERNEL_END) error(0, "the requested kernel does not exist");
 
   printf("GPU kernel version: %s\n", gpu_kernels[kernel].name);
 
@@ -175,16 +165,11 @@ int main(int argc, char **argv) {
   if (kernel == GPU_CUBLAS) {
     for (size_t i = 0; i < NR_ITER; ++i)
       /* FILLME: you might need to change the arguments */
-      gpu_kernels[kernel].fn(gpu_A,
-			     gpu_B,
-			     gpu_C,
-			     M, N, K);
+      gpu_kernels[kernel].fn(gpu_A, gpu_B, gpu_C, M, N, K);
   } else {
     for (size_t i = 0; i < NR_ITER; ++i)
-      gpu_kernels[kernel].fn<<<gpu_grid, gpu_block>>>(gpu_A,
-						      gpu_B,
-						      gpu_C,
-						      M, N, K);
+      gpu_kernels[kernel].fn<<<gpu_grid, gpu_block>>>(gpu_A, gpu_B, gpu_C, M, N,
+                                                      K);
   }
   cudaEventRecord(stop);
   cudaEventSynchronize(stop);
@@ -193,7 +178,7 @@ int main(int argc, char **argv) {
   if ((err = cudaGetLastError()) != cudaSuccess)
     error(0, "gpu kernel failed to launch: %s", gpu_get_errmsg(err));
 #endif
-  float dmm_time = 0; // time in milliseconds
+  float dmm_time = 0;  // time in milliseconds
   cudaEventElapsedTime(&dmm_time, start, stop);
 
   /* Copy result back to host and check */

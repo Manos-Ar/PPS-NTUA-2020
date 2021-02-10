@@ -45,11 +45,13 @@ qsub -q serial -l nodes=dungani:ppn=1 run_dmm.sh
 - Change files:
   - `dmm_gpu.cu`
   - `dmm_main.cu`
+  - `run_dmm.sh`
 - All changes will be made in code segments with **FILL ME** tags
 
 ### Changes `dmm_main.cu`
 - Optionally increase appropriately the matrix size here if that helps you with your kernel code, e.g., to avoid divergent warps.
 - Set up the block and grid depending on the kernel (`THREAD_BLOCK_X, THREAD_BLOCK_Y, TILE_X, TILE_Y`)
+  - Set block size from script
 - Set up the thread block and grid dimensions
 - Execute and time the kernel (for CUBLAS)
 
@@ -59,8 +61,36 @@ qsub -q serial -l nodes=dungani:ppn=1 run_dmm.sh
 - `dmm_gpu_reduced_global()`
 - `dmm_gpu_cublas()`
 
-## Running
+### Changes `run_dmm.sh`
+Two runnning scenarios:
+#### 1st Scenario
+- For (naive, coalesced, shmem)
+- For all block dimensions between `16-512`:
+  - `16 32 48 64 80 96 112 128 144 160 176 192 208 224 240 256 272 288 304 320 336 352 368 384 400 416 432 448 464 480 496 512`
+- For `M=N=K=2048`
+#### 2nd Scenario
+- For (naive, coalesced, shmem, cuBLAS)
+- For best block dimensions for each kernel
+- For `M, N, K ∈ [256, 512, 1024, 2048]`
 
+## Running
+- Current Usage: `[GPU_KERNEL=<kernel_no>] <M> <N> <K>`
+
+- Changed Usage: `[GPU_KERNEL=<kernel_no>] [GPU_BLOCK_SIZE=<block_dim>] <M> <N> <K>
+`
+
+What the program expects:
+```
+./dmm_main
+
+Usage: [GPU_KERNEL=<kernel_no>] ./dmm_main <M> <N> <K>
+KERNEL defaults to 0
+Available kernels [id:name]:
+	0:naive
+	1:coalesced_A
+	2:reduced_global
+	3:cublas
+```
 
 ## Files Description
 - Main Program: `dmm_main.cu`
@@ -72,14 +102,11 @@ qsub -q serial -l nodes=dungani:ppn=1 run_dmm.sh
 
 ## Things to Notice
 - `Makefile`
-  - Makefile options (DEBUG,...)
+  - Makefile options
   - Optimizations
   - `make DEBUG=0`
-- Run `./dmm_main` to see how to use it properly
 - Submit code to torque:
-  - How to submit to dungani
   - Other GPU options (default: NVIDIA Tesla K40c)
-  - `$ qsub -q serial -l nodes=dungani:ppn=1 myjob.sh`
 
 ## CUDA Features
 ### Memory Management
@@ -135,4 +162,36 @@ saxpy<<<(N+255)/256, 256>>>(N, 2.0, d_x, d_y);
 __global__ void kernel() {}
 ```
 
-### Device Code
+# VS Code Settings for CUDA
+## Install extensions
+- Install `C/C++` extension from marketplace
+- Install `vscode-cudacpp` extension from marketplace
+
+## Set Google Formatter
+- Open settings with <kbd>Ctrl</kbd> + <kbd>,</kbd>
+- Go to *Extensions* tab.
+- Go to *C/C++* section.
+- Find `C_Cpp: Clang_format_fallback Style` option.
+- Type `Google` to the text field.
+
+## Set Format on Save
+- Open settings with <kbd>Ctrl</kbd> + <kbd>,</kbd>
+- Go to *Text Editor* tab.
+- Go to *Formatting* section.
+- Find `Format on Save` option.
+- Check the check-box
+
+## Add file assocations
+Open `settings.json`:
+- <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd>
+- Type: *Open Settings (JSON)*
+- Press Enter
+
+And add the following:
+```
+"files.associations": {
+        "*.cu": "cpp",
+        "*.cuh": "cpp"
+    },
+```
+
