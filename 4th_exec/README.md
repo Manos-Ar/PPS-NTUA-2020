@@ -50,7 +50,7 @@ qsub -q serial -l nodes=dungani:ppn=1 run_dmm.sh
 
 ### Changes `dmm_main.cu`
 - [ ] Optionally increase appropriately the matrix size here if that helps you with your kernel code, e.g., to avoid divergent warps.
-- [ ] Set up the block and grid depending on the kernel (`THREAD_BLOCK_X, THREAD_BLOCK_Y, TILE_X, TILE_Y`)
+- [x] Set up the block and grid depending on the kernel (`THREAD_BLOCK_X, THREAD_BLOCK_Y, TILE_X, TILE_Y`)
   - [x] Set `gpu_block`
   - [x] Set `gpu_grid`
     ```c
@@ -58,15 +58,23 @@ qsub -q serial -l nodes=dungani:ppn=1 run_dmm.sh
     dim3 gpu_grid((N + THREAD_BLOCK_Y - 1) / THREAD_BLOCK_Y,
                 (M + THREAD_BLOCK_X - 1) / THREAD_BLOCK_X);
     ```
-    C output matrix is MxN, so we need at least ⌈N/THREAD_BLOCK_Y⌉ number of blocks in X dimension
-    and at least ⌈M/THREAD_BLOCK_X⌉ number of blocks in Y dimension.
-- [ ] CUBLAS arguments
+    C output matrix is MxN, so we need at least `⌈N/THREAD_BLOCK_Y⌉` number of blocks in X dimension
+    and at least `⌈M/THREAD_BLOCK_X⌉` number of blocks in Y dimension.
+- [x] CUBLAS arguments
 
 ### Changes `dmm_gpu.cu`
-- `dmm_gpu_naive()`
-- `dmm_gpu_coalesced_A()`
-- `dmm_gpu_reduced_global()`
-- `dmm_gpu_cublas()`
+#### `dmm_gpu_naive()`
+
+#### `dmm_gpu_coalesced_A()`
+
+#### `dmm_gpu_reduced_global()`
+
+#### `dmm_gpu_cublas()`
+- [x] `alpha`, `beta`
+- [x] `lda`, `ldb`, `ldc`
+- [x] `transa`, `transb`
+- [x] indexing by row-stored matrixes
+- [ ] Change A,B arguments
 
 ### Changes `run_dmm.sh`
 Two runnning scenarios:
@@ -115,6 +123,69 @@ Available kernels [id:name]:
   - `make DEBUG=0`
 - Submit code to torque:
   - Other GPU options (default: NVIDIA Tesla K40c)
+
+### CuBLAS
+[cuBLAS - API Reference Guide](https://docs.nvidia.com/cuda/cublas/index.html)
+For natively written C and C++ code, one would most likely choose **0-based indexing**, in which case the array index of a matrix element in row “i” and column “j” can be computed via the following macro:
+```c
+#define IDX2C(i,j,ld) (((j)*(ld))+(i))
+```
+Also, for C and C++ the **transpose operation** should be selected, because the cuBLAS library uses column-major storage, and 1-based indexing.
+
+The **leading dimension** always refers to the length of the first dimension of the array. If we are using **row-major** representation then the number of "columns" will be leading dimension.
+
+##### 2.1.2. cuBLAS context
+The application must initialize the handle to the cuBLAS library context by calling the `cublasCreate()` function.
+Then, the handle is explicitly passed to every subsequent library function call. 
+Once the application finishes using the library, it must call the function `cublasDestroy()` to release the resources associated with the cuBLAS library context.
+
+##### 2.1.5. A.5. Scalar Parameters
+The functions that take `alpha` and/or `beta` parameters by reference on the host or the device as scaling factors, such as `gemm`:
+- When the pointer mode is set to `CUBLAS_POINTER_MODE_HOST`, the scalar parameters `alpha` and/or `beta` can be on the stack or allocated on the heap, shouldn't be placed in managed memory.
+- When the pointer mode is set to `CUBLAS_POINTER_MODE_DEVICE`, `alpha` and/or `beta` must be accessible on the device and their values should not be modified until the kernel is done.
+
+##### 2.7.1. cublas<t>gemm()
+```c
+cublasStatus_t cublasSgemm(cublasHandle_t handle,
+                           cublasOperation_t transa, cublasOperation_t transb,
+                           int m, int n, int k,
+                           const float           *alpha,
+                           const float           *A, int lda,
+                           const float           *B, int ldb,
+                           const float           *beta,
+                           float           *C, int ldc)
+```
+
+This function performs the matrix-matrix multiplication:
+$C = α op ( A ) op ( B ) + β C$
+where $α$ and $β$ are scalars, and $A$ , $B$ and $C$ are matrices stored in column-major format with dimensions:
+- $op ( A )$: $m × k$
+- $op ( B )$: $k × n$
+- $C$: $m × n$ 
+
+Also, for matrix A:
+- $op ( A ) = A$   if  `transa == CUBLAS_OP_N` 
+- $op ( A ) = A^T$ if  `transa == CUBLAS_OP_T` 
+- $op ( A ) = A^H$ if  `transa == CUBLAS_OP_C` 
+and $op ( B )$ is defined similarly for matrix B.
+
+**Parameters for exercise 4:**
+We change the arguments, for the matrices and give $A$ as $B$, and $B$ as $A$. We do this because we store them in a row-major format, but cuBLAS assumes its column-major. Insteaded of transposing the $A$, $B$ matrices and needing to also transpose back $C$ matrix, we change the matrix arguments in order to have the correct format for $C$:
+- `handle`: *handle to the cuBLAS library context*
+- `transa` = `CUBLAS_OP_N` *($op ( A ) = A$, the non-transpose operation is selected*
+- `transb` = `CUBLAS_OP_N` *($op ( B ) = B$, the non-transpose operation is selected*
+- `m` = `N` *(number of rows of matrix $A$ and $C$)*
+- `n` = `M` *(number of columns of matrix $B$ and $C$)*
+- `k` = `K` *(number of columns of matrix $A$ and rows of $B$)*
+- `alpha`: `<type>` scalar used for multiplication.
+- `A` = `A` *(`<type>` array of dimensions `m k`)*
+- `lda` = `N` *(leading dimension of two-dimensional array used to store the matrix $A$ = column size of $A$, for row-major matrix)*
+- `B` = `B` *(`<type>` array of dimensions `k n`)*
+- `ldb` = `K` *(leading dimension of two-dimensional array used to store the matrix $B$ = column size of $B$, for row-major matrix)*
+- `beta`: `<type>` scalar used for multiplication.
+- `C` = `C` *(`<type>` array of dimensions `m n`)*
+- `ldc` = `N` *(leading dimension of two-dimensional array used to store the matrix $C$ = column size of $C$, for row-major matrix)*
+
 
 ## CUDA Features
 ### Memory Management
