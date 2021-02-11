@@ -132,6 +132,10 @@ int main(int argc, char **argv) {
   dim3 gpu_grid((N + THREAD_BLOCK_Y - 1) / THREAD_BLOCK_Y,
                 (M + THREAD_BLOCK_X - 1) / THREAD_BLOCK_X);
 
+  /* Print Value Format, and Error value */
+  // printf("VALUE_FORMAT = %s\n", VALUE_FORMAT);
+  // printf("EPS = %f\n", EPS);
+
   printf(">>>> Begin of record <<<<\n");
   printf("Block dimensions: %dx%d\n", gpu_block.x, gpu_block.y);
   printf("Grid dimensions : %dx%d\n", gpu_grid.x, gpu_grid.y);

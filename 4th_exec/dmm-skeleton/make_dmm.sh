@@ -18,4 +18,5 @@
 
 cd /home/parallel/parlab07/a4/dmm-skeleton
 make clean
-make DEBUG=0
+# make DEBUG=0
+make DEBUG=0 EPS=1e-5
