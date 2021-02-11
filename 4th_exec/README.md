@@ -80,12 +80,23 @@ Changed files:
 
 ### Changes `dmm_gpu.cu`
 #### `dmm_gpu_naive()`
-
+See [cuda-c-programming-guide/#shared-memory](https://docs.nvidia.com/cuda/cuda-c-programming-guide/#shared-memory)
+Row is y-axis and Column is x-axis. Each thread has its own position:
+```c
+int row = blockIdx.y * blockDim.y + threadIdx.y;
+int col = blockIdx.x * blockDim.x + threadIdx.x;
+```
+Basic Loop over common dimension K, in order for each thread to compute each element of C matrix:
+```c
+for (int e = 0; e < K; e++)
+    Cvalue += A[row * K + e] * B[e * N + col];
+```
 #### `dmm_gpu_coalesced_A()`
-
+See [cuda-c-programming-guide/#shared-memory](https://docs.nvidia.com/cuda/cuda-c-programming-guide/#shared-memory), second example and Commented Code.
 #### `dmm_gpu_reduced_global()`
-
+See [cuda-c-programming-guide/#shared-memory](https://docs.nvidia.com/cuda/cuda-c-programming-guide/#shared-memory), second example and Commented Code.
 #### `dmm_gpu_cublas()`
+See [cublas-cublasSgemm](https://docs.nvidia.com/cuda/cublas/index.html#cublas-lt-t-gt-gemm)
 - [x] `alpha`, `beta`
 - [x] `lda`, `ldb`, `ldc`
 - [x] `transa`, `transb`
@@ -123,9 +134,7 @@ and we want the elements to compute to be equal to the number of threads.
 Two runnning scenarios:
 #### 1st Scenario
 - For (naive, coalesced, shmem)
-- For all block-tile dimensions between `4-32`:
-  - `4 8 16 32`
-  - Find block sizes to test
+- For all block-tile dimensions `4 8 16 32`
 - For `M=N=K=2048`
 #### 2nd Scenario
 - For (naive, coalesced, shmem, cuBLAS)
@@ -133,11 +142,6 @@ Two runnning scenarios:
 - For `M, N, K ∈ [256, 512, 1024, 2048]`
 
 ## Running
-- Current Usage: `[GPU_KERNEL=<kernel_no>] <M> <N> <K>`
-
-- Changed Usage: `[GPU_KERNEL=<kernel_no>] [GPU_BLOCK_SIZE=<block_dim>] <M> <N> <K>
-`
-
 What the program expects:
 ```
 ./dmm_main
@@ -158,14 +162,6 @@ Available kernels [id:name]:
 - GPU Helper files:
   - For 2D Matrixes: `mat_util.c`
   - For GPUs: `gpu_util.c`
-
-## Things to Notice
-- `Makefile`
-  - Makefile options
-  - Optimizations
-  - `make DEBUG=0`
-- Submit code to torque:
-  - Other GPU options (default: NVIDIA Tesla K40c)
 
 ### CuBLAS
 [cuBLAS - API Reference Guide](https://docs.nvidia.com/cuda/cublas/index.html)
