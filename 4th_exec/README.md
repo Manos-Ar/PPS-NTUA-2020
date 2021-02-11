@@ -42,11 +42,22 @@ qsub -q serial -l nodes=dungani:ppn=1 run_dmm.sh
 # Code Guide
 ## Changes To Be Made
 - Only change `cuda` directory.
-- Change files:
+- All changes will be made in code segments with **FILL ME** tags
+
+Changed files:
+- Implementation files:
   - `dmm_gpu.cu`
   - `dmm_main.cu`
+
+- Other changed files:
+  - `Makefile`
+  - `make_dmm.sh`
   - `run_dmm.sh`
-- All changes will be made in code segments with **FILL ME** tags
+
+- Temp Changes:
+  - `common.h` (float VS double) ??
+  - `dmm_gpu.cu` (Sgemm VS Dgemm) ??
+
 
 ### Changes `dmm_main.cu`
 - [ ] Optionally increase appropriately the matrix size here if that helps you with your kernel code, e.g., to avoid divergent warps.
@@ -78,6 +89,21 @@ qsub -q serial -l nodes=dungani:ppn=1 run_dmm.sh
 - [x] `transa`, `transb`
 - [x] indexing by row-stored matrixes
 - [x] Change A,B arguments
+
+
+### Changes `Makefile`
+Make `EPS` error value a compile time parameter:
+```makefile
+EPS ?= 1e-5
+MAKE_CPPFLAGS = -D__FLOAT_VALUES -DEPS=$(EPS) -I../common
+```
+
+### Changes `make_dmm.sh`
+Clean directory and set `EPS` values at compile time:
+```sh
+make clean
+make DEBUG=0 EPS=1e-5
+```
 
 ### Changes `run_dmm.sh`
 Two runnning scenarios:
