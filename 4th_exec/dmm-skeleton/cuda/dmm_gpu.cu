@@ -101,10 +101,10 @@ void dmm_gpu_cublas(const value_t *A, const value_t *B, value_t *C,
 
   // Define alpha, beta values for GEMM calculation
   // C = alpha*A*B + beta*C
-  const float alpha_val = 1;
-  const float beta_val = 0;
-  const float *alpha = &alpha_val;
-  const float *beta = &beta_val;
+  const value_t alpha_val = 1;
+  const value_t beta_val = 0;
+  const value_t *alpha = &alpha_val;
+  const value_t *beta = &beta_val;
 
   // Create a handle for cuBLAS
   stat = cublasCreate(&handle);
@@ -112,9 +112,14 @@ void dmm_gpu_cublas(const value_t *A, const value_t *B, value_t *C,
     printf("CUBLAS initialization failed\n");
   }
 
-  // Call cublasSgemm to calculate the DMM
+  // Call cublasSgemm to calculate the DMM (for floats)
   stat = cublasSgemm(handle, CUBLAS_OP_N, CUBLAS_OP_N, N, M, K, alpha, A, lda,
                      B, ldb, beta, C, ldc);
+
+  // Call cublasSgemm to calculate the DMM (for doubles)
+  // stat = cublasDgemm(handle, CUBLAS_OP_N, CUBLAS_OP_N, N, M, K, alpha, A,
+  //   lda, B, ldb, beta, C, ldc);
+
   if (stat != CUBLAS_STATUS_SUCCESS) {
     printf("cublasSgemm failed");
   }

@@ -55,8 +55,9 @@ Changed files:
   - `run_dmm.sh`
 
 - Temp Changes:
-  - `common.h` (float VS double) ??
-  - `dmm_gpu.cu` (Sgemm VS Dgemm) ??
+  - `common.h` (`float` VS `double`) ??
+  - `dmm_gpu.cu` (`Sgemm` VS `Dgemm`) ??
+  - Make `float`, `double` choise at compile time
 
 
 ### Changes `dmm_main.cu`
