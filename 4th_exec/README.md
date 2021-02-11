@@ -61,6 +61,9 @@ qsub -q serial -l nodes=dungani:ppn=1 run_dmm.sh
     C output matrix is MxN, so we need at least `⌈N/THREAD_BLOCK_Y⌉` number of blocks in X dimension
     and at least `⌈M/THREAD_BLOCK_X⌉` number of blocks in Y dimension.
 - [x] CUBLAS arguments
+    ```c
+    gpu_kernels[kernel].fn(gpu_B, gpu_A, gpu_C, M, N, K);
+    ```
 
 ### Changes `dmm_gpu.cu`
 #### `dmm_gpu_naive()`
@@ -74,7 +77,7 @@ qsub -q serial -l nodes=dungani:ppn=1 run_dmm.sh
 - [x] `lda`, `ldb`, `ldc`
 - [x] `transa`, `transb`
 - [x] indexing by row-stored matrixes
-- [ ] Change A,B arguments
+- [x] Change A,B arguments
 
 ### Changes `run_dmm.sh`
 Two runnning scenarios:
