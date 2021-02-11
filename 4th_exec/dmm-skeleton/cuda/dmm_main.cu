@@ -167,7 +167,8 @@ int main(int argc, char **argv) {
   if (kernel == GPU_CUBLAS) {
     for (size_t i = 0; i < NR_ITER; ++i)
       /* FILLME: you might need to change the arguments */
-      gpu_kernels[kernel].fn(gpu_A, gpu_B, gpu_C, M, N, K);
+      // gpu_kernels[kernel].fn(gpu_A, gpu_B, gpu_C, M, N, K);
+      gpu_kernels[kernel].fn(gpu_B, gpu_A, gpu_C, M, N, K);
   } else {
     for (size_t i = 0; i < NR_ITER; ++i)
       gpu_kernels[kernel].fn<<<gpu_grid, gpu_block>>>(gpu_A, gpu_B, gpu_C, M, N,
