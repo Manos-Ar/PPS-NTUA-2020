@@ -23,11 +23,10 @@
 export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
 export CUDA_VISIBLE_DEVICES=2
 
-# gpu_kernels="0 1 2"	# Our kernels
-gpu_kernels="2"
+gpu_kernels="0 1 2"	# Our kernels
 
-# gpu_kernels_all="0 1 2 3"	# All kernels
-gpu_kernels_all="1"
+gpu_kernels_all="0 1 2 3"	# All kernels
+gpu_kernels_best_blocks=(32 16 32 32)
 
 problem_sizes="256 512 1024 2048"
 
@@ -39,46 +38,28 @@ gpu_prog="./dmm_main"
 cd /home/parallel/parlab07/a4/dmm-skeleton/cuda
 echo "Benchmark started on $(date) in $(hostname)"
 
-## Scenario: All possible configurations
-# for i in $gpu_kernels; do
-# 	for m in $problem_sizes; do
-# 		for n in $problem_sizes; do
-# 			for k in $problem_sizes; do
-# 				for b in $block_sizes; do
-# 					GPU_KERNEL=$i GPU_BLOCK_SIZE=$b $gpu_prog $m $n $k
-# 				done
-# 			done
-# 		done
-# 	done
-# done
-
 ## Scenario 1: For (naive, coalesced, shmem) kernels, for block-tile sizes, M = N = K = 2048
 for i in $gpu_kernels; do
 	for b in $block_sizes; do
 		make -s clean
 		make -s THREAD_BLOCK_X=$b THREAD_BLOCK_Y=$b TILE_X=$b TILE_Y=$b DEBUG=0
-		GPU_KERNEL=$i $gpu_prog 256 256 256
+		GPU_KERNEL=$i $gpu_prog 2048 2048 2048
 	done
 done
 
-
-# GPU_KERNEL=3 $gpu_prog 2048 2048 2048
-# GPU_KERNEL=0 $gpu_prog 256 256 256
-# GPU_KERNEL=1 $gpu_prog 256 256 256
-# GPU_KERNEL=3 $gpu_prog 256 256 256
-
-## Scenario 2: For all kernels, for M, N, K ∈ [256, 512, 1024, 2048], with best block-tile sizes
-# for i in $gpu_kernels_all; do
-# 	for m in $problem_sizes; do
-# 		for n in $problem_sizes; do
-# 			for k in $problem_sizes; do
-# 				# make -s clean
-# 				# make -s THREAD_BLOCK_X="??" THREAD_BLOCK_Y="??" DEBUG=0
-# 				GPU_KERNEL=$i $gpu_prog $m $n $k
-# 			done
-# 		done
-# 	done
-# done
+## Scenario 2: For all kernels, for M, N, K ∈ [256, 512, 1024, 2048], with best block dims
+for i in $gpu_kernels_all; do
+	for m in $problem_sizes; do
+		for n in $problem_sizes; do
+			for k in $problem_sizes; do
+				b=${gpu_kernels_best_blocks[$i]}
+				make -s clean
+				make -s THREAD_BLOCK_X=$b THREAD_BLOCK_Y=$b TILE_X=$b TILE_Y=$b DEBUG=0
+				GPU_KERNEL=$i $gpu_prog $m $n $k
+			done
+		done
+	done
+done
 
 
 echo "Benchmark ended on $(date) in $(hostname)"
