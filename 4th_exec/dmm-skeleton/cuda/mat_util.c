@@ -6,6 +6,7 @@
  */
 
 #include "mat_util.h"
+
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -31,9 +32,12 @@ bool mat_equals(const value_t *const *m1, const value_t *const *m2,
                 const size_t M, const size_t N, const value_t eps) {
   for (size_t i = 0; i < M; ++i) {
     for (size_t j = 0; j < N; ++j) {
-      if (FABS(m1[i][j] - m2[i][j]) > eps)
-        return false;
+      /* Print Parallel array m1 and Serial array m2 */
+      // printf("m1[%zu][%zu]=%f \tm2[%zu][%zu]=%f \n", i, j, m1[i][j], i, j,
+      //        m2[i][j]);
+      if (FABS(m1[i][j] - m2[i][j]) > eps) return false;
     }
+    // printf("\n");
   }
 
   return true;
