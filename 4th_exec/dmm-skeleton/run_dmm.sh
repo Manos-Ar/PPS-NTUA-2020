@@ -24,7 +24,7 @@ export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
 export CUDA_VISIBLE_DEVICES=2
 
 # gpu_kernels="0 1 2"	# Our kernels
-gpu_kernels="1"
+gpu_kernels="2"
 
 # gpu_kernels_all="0 1 2 3"	# All kernels
 gpu_kernels_all="1"
@@ -57,7 +57,7 @@ for i in $gpu_kernels; do
 	for b in $block_sizes; do
 		make -s clean
 		make -s THREAD_BLOCK_X=$b THREAD_BLOCK_Y=$b TILE_X=$b TILE_Y=$b DEBUG=0
-		GPU_KERNEL=$i $gpu_prog 2048 2048 2048
+		GPU_KERNEL=$i $gpu_prog 256 256 256
 	done
 done
 
