@@ -18,6 +18,7 @@ __global__ void dmm_gpu_naive(const value_t *A, const value_t *B, value_t *C,
   // Compute the row and the column of the current thread
   int row = blockIdx.y * blockDim.y + threadIdx.y;
   int col = blockIdx.x * blockDim.x + threadIdx.x;
+
   value_t Cvalue = 0;
 
   // If the threads positions is out of array bounds, exit
@@ -37,41 +38,44 @@ __global__ void dmm_gpu_naive(const value_t *A, const value_t *B, value_t *C,
 __global__ void dmm_gpu_coalesced_A(const value_t *A, const value_t *B,
                                     value_t *C, const size_t M, const size_t N,
                                     const size_t K) {
-  //   // Compute the Block row and column of each thread
-  //     int blockRow = blockIdx.y;
-  //   int blockCol = blockIdx.x;
+  // Shared memory between threads of the same block, for Tiled sub-matrix of A
+  __shared__ value_t A_shared[TILE_X][TILE_Y];
 
-  //   // Each thread block computes one sub-matrix Csub of C
+  // Compute the row and column of each thread in a Tile
+  int tid_y = threadIdx.y;
+  int tid_x = threadIdx.x;
+  int row = blockIdx.y * TILE_Y + tid_y;
+  int col = blockIdx.x * TILE_X + tid_x;
 
-  //   // Each thread computes one element of C by accumulating results into
-  //   Cvalue value_t Cvalue;
+  // Each thread computes one element of C by accumulating results into Cvalue
+  value_t Cvalue = 0;
 
-  //   // Thread row and column within Csub
-  //   int row = threadIdx.y;
-  //   int col = threadIdx.x;
+  // Calculate the ceiling for number of Tiles needed for A
+  int tile_x_ceil = (K + TILE_X - 1) / TILE_X;
 
-  //   // If the threads positions is out of array bounds, exit
-  //   if (row >= M || col >= N) return;
+  // Loop over all the sub-matrices of A (on x-axis, for all columns) that are
+  // required to compute Csub.
+  // Multiply the A sub-matrix with B and accumulate the results.
+  for (int m = 0; m < tile_x_ceil; m++) {
+    // Load sub-matrix of A from device memory to shared memory
+    A_shared[tid_y][tid_x] = A[row * K + m * TILE_X + tid_x];
+    // Explanation: Find from which row to start, from which tile, from which
+    // thread inside the tile
 
-  //   // Loop over all the sub-matrices of A and B that are required to compute
-  //   Csub
-  //   // Multiply each pair of sub-matrices together and accumulate the results
-  //   for (int m = 0; m < (K / BLOCK_SIZE); ++m) {
-  //     // Get sub-matrix Asub of A
+    // Synchronize to make sure the sub-matrix is loaded
+    // before starting the computation
+    __syncthreads();
 
-  //     // Get sub-matrix Bsub of B
-
-  //     // Shared memory used to store Asub and Bsub respectively
-  //     __shared__ value_t As[BLOCK_SIZE][BLOCK_SIZE];
-  //     __shared__ value_t As[BLOCK_SIZE][BLOCK_SIZE];
-  //   }
-
-  //   // Each thread computes one element of C by accumulating results into
-  //   Cvalue for (int e = 0; e < K; e++) {
-  //     Cvalue += A[row * K + e] * B[e * N + col];
-  //   }
-
-  //   C[row * N + col] = Cvalue;
+    // Multiply A_submatrix and B together
+    for (int e = 0; e < TILE_X; e++) {
+      Cvalue += A_shared[tid_y][e] * B[(m * TILE_X + e) * N + col];
+    }
+    // Synchronize to make sure that the preceding computation is done
+    // before loading new sub-matrix of A and in the next iteration
+    __syncthreads();
+  }
+  // Write Csub to device memory
+  C[row * N + col] = Cvalue;
 }
 
 /*

@@ -36,7 +36,7 @@ qsub -q serial -l nodes=dungani:ppn=1 make_dmm.sh
 
 ### Run All
 ```
-qsub -q serial -l nodes=dungani:ppn=1 run_dmm.sh
+qsub -q serial -l nodes=dungani:ppn=8 run_dmm.sh
 ```
 
 # Code Guide
@@ -61,6 +61,7 @@ Changed files:
 
 
 ### Changes `dmm_main.cu`
+- [ ] `cudaSetDevice()`, set device to be NVIDIA Tesla K40c (Device 2)
 - [ ] Optionally increase appropriately the matrix size here if that helps you with your kernel code, e.g., to avoid divergent warps.
 - [x] Set up the block and grid depending on the kernel (`THREAD_BLOCK_X, THREAD_BLOCK_Y, TILE_X, TILE_Y`)
   - [x] Set `gpu_block`
@@ -107,11 +108,23 @@ make DEBUG=0 EPS=1e-5
 ```
 
 ### Changes `run_dmm.sh`
+For the GPU we are using:
+```
+Maximum number of threads per block:           1024
+Max dimension size of a thread block (x,y,z): (1024, 1024, 64)
+```
+So there is no point in checking block sizes over `32x32=1024`.
+
+We also want: `THREAD_BLOCK_*=TILE_*`, because:
+- `THREAD_BLOCK_*`: is the number of threads per block
+- `TILE_*`: is the number of elements to compute in the C submatrix
+and we want the elements to compute to be equal to the number of threads.
+
 Two runnning scenarios:
 #### 1st Scenario
 - For (naive, coalesced, shmem)
-- For all block dimensions between `16-512`:
-  - `16 32 48 64 80 96 112 128 144 160 176 192 208 224 240 256 272 288 304 320 336 352 368 384 400 416 432 448 464 480 496 512`
+- For all block-tile dimensions between `4-32`:
+  - `4 8 16 32`
   - Find block sizes to test
 - For `M=N=K=2048`
 #### 2nd Scenario

@@ -24,15 +24,14 @@ export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
 export CUDA_VISIBLE_DEVICES=2
 
 # gpu_kernels="0 1 2"	# Our kernels
-gpu_kernels="0"
+gpu_kernels="1"
 
 # gpu_kernels_all="0 1 2 3"	# All kernels
-gpu_kernels_all="0 3"
+gpu_kernels_all="1"
 
 problem_sizes="256 512 1024 2048"
 
-# block_sizes="$(seq 16 16 512)"
-block_sizes="16 32 64 128 256 512"
+block_sizes="4 8 16 32"
 
 gpu_prog="./dmm_main"
 
@@ -53,19 +52,20 @@ echo "Benchmark started on $(date) in $(hostname)"
 # 	done
 # done
 
-## Scenario 1: For (naive, coalesced, shmem) kernels, for block sizes, M = N = K = 2048
-# for i in $gpu_kernels; do
-# 	for b in $block_sizes; do
-# 		make -s clean
-# 		make -s THREAD_BLOCK_X=$b THREAD_BLOCK_Y=$b DEBUG=0
-# 		GPU_KERNEL=$i $gpu_prog 2048 2048 2048
-# 	done
-# done
+## Scenario 1: For (naive, coalesced, shmem) kernels, for block-tile sizes, M = N = K = 2048
+for i in $gpu_kernels; do
+	for b in $block_sizes; do
+		make -s clean
+		make -s THREAD_BLOCK_X=$b THREAD_BLOCK_Y=$b TILE_X=$b TILE_Y=$b DEBUG=0
+		GPU_KERNEL=$i $gpu_prog 2048 2048 2048
+	done
+done
 
 
 # GPU_KERNEL=3 $gpu_prog 2048 2048 2048
-GPU_KERNEL=0 $gpu_prog 256 256 256
-GPU_KERNEL=3 $gpu_prog 256 256 256
+# GPU_KERNEL=0 $gpu_prog 256 256 256
+# GPU_KERNEL=1 $gpu_prog 256 256 256
+# GPU_KERNEL=3 $gpu_prog 256 256 256
 
 ## Scenario 2: For all kernels, for M, N, K ∈ [256, 512, 1024, 2048], for best blocks dims
 # for i in $gpu_kernels_all; do
