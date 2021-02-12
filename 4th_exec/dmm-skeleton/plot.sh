@@ -7,6 +7,7 @@ if [ ! -d "${DIR_PLOTS}" ]; then
 fi
 
 ./plot_1.py ${DIR_METRICS}/metrics_1.txt
+./plot_2.py ${DIR_METRICS}/metrics_2.txt
 
 # sizes=( 1024 8192 )
 # operations=( "80-10-10" "20-40-40" )
