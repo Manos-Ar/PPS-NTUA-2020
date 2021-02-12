@@ -51,14 +51,10 @@ Changed files:
 
 - Other changed files:
   - `Makefile`
-  - `make_dmm.sh`
   - `run_dmm.sh`
-
-- Temp Changes:
-  - `common.h` (`float` VS `double`) ??
-  - `dmm_gpu.cu` (`Sgemm` VS `Dgemm`) ??
-  - Make `float`, `double` choise at compile time
-
+  - `make_dmm.sh`
+  - `test_dmm.sh`
+  - `run_dmm_final.sh`
 
 ### Changes `dmm_main.cu`
 - [ ] `cudaSetDevice()`, set device to be NVIDIA Tesla K40c (Device 2)
@@ -112,11 +108,17 @@ MAKE_CPPFLAGS = -D__FLOAT_VALUES -DEPS=$(EPS) -I../common
 ```
 
 ### Changes `make_dmm.sh`
-Clean directory and set `EPS` values at compile time:
+Clean directory, set no debug info and set `EPS` values at compile time:
 ```sh
 make clean
 make DEBUG=0 EPS=1e-5
 ```
+Clean directory, set no debug info and no checking:
+```sh
+make clean
+make DEBUG=0 CHECK=0
+```
+
 
 ### Changes `run_dmm.sh`
 For the GPU we are using:

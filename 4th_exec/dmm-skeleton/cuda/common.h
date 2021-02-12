@@ -27,10 +27,6 @@
 #define VALUE_FORMAT "f"
 #define FABS fabsf
 typedef float value_t;
-// #define MAKE_VALUE_CONSTANT(v) v
-// #define VALUE_FORMAT "lf"
-// #define FABS fabs
-// typedef double value_t;
 #else
 #define MAKE_VALUE_CONSTANT(v) v
 #define VALUE_FORMAT "lf"

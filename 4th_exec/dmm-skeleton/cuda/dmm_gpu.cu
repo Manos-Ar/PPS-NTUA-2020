@@ -156,11 +156,6 @@ void dmm_gpu_cublas(const value_t *A, const value_t *B, value_t *C,
   // Call cublasSgemm to calculate the DMM (for floats)
   stat = cublasSgemm(handle, CUBLAS_OP_N, CUBLAS_OP_N, N, M, K, alpha, A, lda,
                      B, ldb, beta, C, ldc);
-
-  // Call cublasSgemm to calculate the DMM (for doubles)
-  // stat = cublasDgemm(handle, CUBLAS_OP_N, CUBLAS_OP_N, N, M, K, alpha, A,
-  //   lda, B, ldb, beta, C, ldc);
-
   if (stat != CUBLAS_STATUS_SUCCESS) {
     printf("cublasSgemm failed");
   }
