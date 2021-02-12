@@ -38,14 +38,22 @@ gpu_prog="./dmm_main"
 cd /home/parallel/parlab07/a4/dmm-skeleton/cuda
 echo "Benchmark started on $(date) in $(hostname)"
 
+echo "########################################"
+echo "############## Scenario 1 ##############"
+echo "########################################"
+
 ## Scenario 1: For (naive, coalesced, shmem) kernels, for block-tile sizes, M = N = K = 2048
 for i in $gpu_kernels; do
 	for b in $block_sizes; do
 		make -s clean
-		make -s THREAD_BLOCK_X=$b THREAD_BLOCK_Y=$b TILE_X=$b TILE_Y=$b DEBUG=0
+		make -s THREAD_BLOCK_X=$b THREAD_BLOCK_Y=$b TILE_X=$b TILE_Y=$b DEBUG=0 CHECK=0
 		GPU_KERNEL=$i $gpu_prog 2048 2048 2048
 	done
 done
+
+echo "########################################"
+echo "############## Scenario 2 ##############"
+echo "########################################"
 
 ## Scenario 2: For all kernels, for M, N, K ∈ [256, 512, 1024, 2048], with best block dims
 for i in $gpu_kernels_all; do
@@ -54,7 +62,7 @@ for i in $gpu_kernels_all; do
 			for k in $problem_sizes; do
 				b=${gpu_kernels_best_blocks[$i]}
 				make -s clean
-				make -s THREAD_BLOCK_X=$b THREAD_BLOCK_Y=$b TILE_X=$b TILE_Y=$b DEBUG=0
+				make -s THREAD_BLOCK_X=$b THREAD_BLOCK_Y=$b TILE_X=$b TILE_Y=$b DEBUG=0 CHECK=0
 				GPU_KERNEL=$i $gpu_prog $m $n $k
 			done
 		done
