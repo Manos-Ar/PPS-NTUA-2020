@@ -19,24 +19,27 @@ performances = {}
 for i in implementations:
     performances[i] = []
 
-# Read from metrics, dependent of lines in .txt (!)
 with open(sys.argv[1], 'r') as fp:
     line = fp.readline()
     i = 0
     while line:
         if line.startswith(">>>> Begin"):
             line = fp.readline()
-            block_dims = line.split(":")[1].split("x")[0]
+            while not line.startswith(">>>> End"):
+                if line.startswith("Block dimensions:"):
+                    # print(line)
+                    block_dims = line.split(":")[1].split("x")[0]
 
-            line = fp.readline()
-            line = fp.readline()
-            implem = line.split(":")[1].split(" ")[1].split("\n")[0]
+                if line.startswith("GPU kernel version:"):
+                    # print(line)
+                    implem = line.split(":")[1].split(" ")[1].split("\n")[0]
 
-            line = fp.readline()
-            line = fp.readline()
-            perform = float(line.split(":")[1].split(" ")[2])
+                if line.startswith("Performance:"):
+                    # print(line)
+                    perform = float(line.split(":")[1].split(" ")[2])
+                    performances[implem].append(perform)
 
-            performances[implem].append(perform)
+                line = fp.readline()
         line = fp.readline()
 
 print("performances:", performances)
