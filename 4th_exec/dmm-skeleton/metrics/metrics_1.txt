@@ -1,0 +1,158 @@
+Benchmark started on Fri Feb 12 14:00:21 EET 2021 in dungani
+Dimension M: 2048
+Adjusted dimension M: 2048
+Dimension N: 2048
+Adjusted dimension N: 2048
+Dimension K: 2048
+Adjusted dimension K: 2048
+>>>> Begin of record <<<<
+Block dimensions: 4x4
+Grid dimensions : 512x512
+GPU kernel version: naive
+Elapsed time: 107815.703125 ms
+Performance:  15.934478 Gflop/s
+>>>> End of record <<<<
+Dimension M: 2048
+Adjusted dimension M: 2048
+Dimension N: 2048
+Adjusted dimension N: 2048
+Dimension K: 2048
+Adjusted dimension K: 2048
+>>>> Begin of record <<<<
+Block dimensions: 8x8
+Grid dimensions : 256x256
+GPU kernel version: naive
+Elapsed time: 28556.341797 ms
+Performance:  60.161310 Gflop/s
+>>>> End of record <<<<
+Dimension M: 2048
+Adjusted dimension M: 2048
+Dimension N: 2048
+Adjusted dimension N: 2048
+Dimension K: 2048
+Adjusted dimension K: 2048
+>>>> Begin of record <<<<
+Block dimensions: 16x16
+Grid dimensions : 128x128
+GPU kernel version: naive
+Elapsed time: 15671.727539 ms
+Performance:  109.623327 Gflop/s
+>>>> End of record <<<<
+Dimension M: 2048
+Adjusted dimension M: 2048
+Dimension N: 2048
+Adjusted dimension N: 2048
+Dimension K: 2048
+Adjusted dimension K: 2048
+>>>> Begin of record <<<<
+Block dimensions: 32x32
+Grid dimensions : 64x64
+GPU kernel version: naive
+Elapsed time: 15231.064453 ms
+Performance:  112.794935 Gflop/s
+>>>> End of record <<<<
+Dimension M: 2048
+Adjusted dimension M: 2048
+Dimension N: 2048
+Adjusted dimension N: 2048
+Dimension K: 2048
+Adjusted dimension K: 2048
+>>>> Begin of record <<<<
+Block dimensions: 4x4
+Grid dimensions : 512x512
+GPU kernel version: coalesced_A
+Elapsed time: 84567.984375 ms
+Performance:  20.314862 Gflop/s
+>>>> End of record <<<<
+Dimension M: 2048
+Adjusted dimension M: 2048
+Dimension N: 2048
+Adjusted dimension N: 2048
+Dimension K: 2048
+Adjusted dimension K: 2048
+>>>> Begin of record <<<<
+Block dimensions: 8x8
+Grid dimensions : 256x256
+GPU kernel version: coalesced_A
+Elapsed time: 14788.092773 ms
+Performance:  116.173664 Gflop/s
+>>>> End of record <<<<
+Dimension M: 2048
+Adjusted dimension M: 2048
+Dimension N: 2048
+Adjusted dimension N: 2048
+Dimension K: 2048
+Adjusted dimension K: 2048
+>>>> Begin of record <<<<
+Block dimensions: 16x16
+Grid dimensions : 128x128
+GPU kernel version: coalesced_A
+Elapsed time: 8562.681641 ms
+Performance:  200.636552 Gflop/s
+>>>> End of record <<<<
+Dimension M: 2048
+Adjusted dimension M: 2048
+Dimension N: 2048
+Adjusted dimension N: 2048
+Dimension K: 2048
+Adjusted dimension K: 2048
+>>>> Begin of record <<<<
+Block dimensions: 32x32
+Grid dimensions : 64x64
+GPU kernel version: coalesced_A
+Elapsed time: 14137.459961 ms
+Performance:  121.520197 Gflop/s
+>>>> End of record <<<<
+Dimension M: 2048
+Adjusted dimension M: 2048
+Dimension N: 2048
+Adjusted dimension N: 2048
+Dimension K: 2048
+Adjusted dimension K: 2048
+>>>> Begin of record <<<<
+Block dimensions: 4x4
+Grid dimensions : 512x512
+GPU kernel version: reduced_global
+Elapsed time: 51456.261719 ms
+Performance:  33.387325 Gflop/s
+>>>> End of record <<<<
+Dimension M: 2048
+Adjusted dimension M: 2048
+Dimension N: 2048
+Adjusted dimension N: 2048
+Dimension K: 2048
+Adjusted dimension K: 2048
+>>>> Begin of record <<<<
+Block dimensions: 8x8
+Grid dimensions : 256x256
+GPU kernel version: reduced_global
+Elapsed time: 10809.823242 ms
+Performance:  158.928308 Gflop/s
+>>>> End of record <<<<
+Dimension M: 2048
+Adjusted dimension M: 2048
+Dimension N: 2048
+Adjusted dimension N: 2048
+Dimension K: 2048
+Adjusted dimension K: 2048
+>>>> Begin of record <<<<
+Block dimensions: 16x16
+Grid dimensions : 128x128
+GPU kernel version: reduced_global
+Elapsed time: 6069.163574 ms
+Performance:  283.068152 Gflop/s
+>>>> End of record <<<<
+Dimension M: 2048
+Adjusted dimension M: 2048
+Dimension N: 2048
+Adjusted dimension N: 2048
+Dimension K: 2048
+Adjusted dimension K: 2048
+>>>> Begin of record <<<<
+Block dimensions: 32x32
+Grid dimensions : 64x64
+GPU kernel version: reduced_global
+Elapsed time: 4705.920898 ms
+Performance:  365.069230 Gflop/s
+>>>> End of record <<<<
+Benchmark ended on Fri Feb 12 14:08:18 EET 2021 in dungani
