@@ -1,3 +1,4 @@
 dmm-skeleton/*.out
 dmm-skeleton/*.o
 dmm-skeleton/metrics/*.out
+dmm-skeleton/metrics/*.err
